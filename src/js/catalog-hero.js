@@ -141,6 +141,7 @@ async function initCatalogHero() {
     console.error('Catalog hero error:', err);
   }
 }
+
 initCatalogHero();
 
 function showDetailsPopup(movie) {
