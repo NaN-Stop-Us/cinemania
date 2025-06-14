@@ -55,4 +55,4 @@ import{a as p}from"./vendor-DGDcxXwr.js";(function(){const t=document.createElem
       </div>
     </div>
   `,t.classList.add("active");const r=m=>{m.key==="Escape"&&a()};document.addEventListener("keydown",r);function a(){t.classList.remove("active"),t.innerHTML="",document.removeEventListener("keydown",r)}t.querySelector(".close-span-btn-details").addEventListener("click",a),t.querySelector(".detail-overlay").addEventListener("click",a)}
-//# sourceMappingURL=main-BqbKavTa.js.map
+//# sourceMappingURL=main-COgNwm9I.js.map
