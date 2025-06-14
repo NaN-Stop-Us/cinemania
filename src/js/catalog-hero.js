@@ -52,13 +52,13 @@ function generateStars(vote) {
   const emptyStars = 5 - fullStars - (hasHalfStar ? 1 : 0);
   let starsHtml = '';
   for (let i = 0; i < fullStars; i++) {
-    starsHtml += `<img src="./img/starfull.svg" alt="Full Star" class="star-icon" />`;
+    starsHtml += `<img src="./src/img/starfull.svg" alt="Full Star" class="star-icon" />`;
   }
   if (hasHalfStar) {
-    starsHtml += `<img src="./img/starhalf.svg" alt="Half Star" class="star-icon" />`;
+    starsHtml += `<img src="./src/img/starhalf.svg" alt="Half Star" class="star-icon" />`;
   }
   for (let i = 0; i < emptyStars; i++) {
-    starsHtml += `<img src="./img/starempty.svg" alt="Empty Star" class="star-icon" />`;
+    starsHtml += `<img src="./src/img/starempty.svg" alt="Empty Star" class="star-icon" />`;
   }
   return starsHtml;
 }
@@ -102,7 +102,7 @@ catalogHero.querySelector('.more-details').addEventListener('click', () => {
         <p>We are very sorry!<br>But we couldn't find the trailer.</p>
       </div>
       <div class="not-found-img-wrapper">
-        <img src="../img/sorryImg.png" alt="Not Found" class="not-found-img">
+        <img src="./img/sorryImg.png" alt="Not Found" class="not-found-img">
       </div>
     </div>
   </div>
