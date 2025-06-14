@@ -1,4 +1,4 @@
-/ fetchApi importu
+// fetchApi importu
 import { fetchMovies, BASE_URL, ENDPOINTS, IMG_BASE_URL, fetchGenres } from ‘./fetchApi’;
 let genreMap = {};
 (async () => {
