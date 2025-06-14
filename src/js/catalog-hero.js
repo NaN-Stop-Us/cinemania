@@ -52,13 +52,13 @@ function generateStars(vote) {
   const emptyStars = 5 - fullStars - (hasHalfStar ? 1 : 0);
   let starsHtml = '';
   for (let i = 0; i < fullStars; i++) {
-    starsHtml += `<img src="./img/star-full.svg" alt="Full Star" class="star-icon" />`;
+    starsHtml += `<img src="./img/starfull.svg" alt="Full Star" class="star-icon" />`;
   }
   if (hasHalfStar) {
-    starsHtml += `<img src="./img/star-half.svg" alt="Half Star" class="star-icon" />`;
+    starsHtml += `<img src="./img/starhalf.svg" alt="Half Star" class="star-icon" />`;
   }
   for (let i = 0; i < emptyStars; i++) {
-    starsHtml += `<img src="./img/star-empty.svg" alt="Empty Star" class="star-icon" />`;
+    starsHtml += `<img src="./img/starempty.svg" alt="Empty Star" class="star-icon" />`;
   }
   return starsHtml;
 }
