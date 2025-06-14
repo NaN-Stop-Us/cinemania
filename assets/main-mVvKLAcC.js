@@ -6,7 +6,7 @@ import{a as p}from"./vendor-DGDcxXwr.js";(function(){const t=document.createElem
       </button>
       <iframe src="${e}" frameborder="0" allowfullscreen></iframe>
     </div>
-  `,i.classList.add("active"),i.querySelector(".overlay").addEventListener("click",u),i.querySelector(".close-span-btn").addEventListener("click",u)}function u(){i.classList.remove("active"),i.innerHTML=""}function I(e){const t=Math.round(e)/2,o=Math.floor(t),s=t%1>=.5,a=5-o-(s?1:0);let r="";for(let n=0;n<o;n++)r+='<img src="/cinemania/src/img/starfull.svg" alt="Full Star" class="star-icon" />';s&&(r+='<img src="/cinemania/src/img/starhalf.svg" alt="Half Star" class="star-icon" />');for(let n=0;n<a;n++)r+='<img src="/cinemania/src/img/starempty.svg" alt="Empty Star" class="star-icon" />';return r}async function S(){try{const e=await h(g,c.POPULAR_MOVIES),t=b(e.results),o=`${f}${c.IMG_W1280}${t.backdrop_path}`;l.style.backgroundImage=`url('${o}')`,l.innerHTML=`
+  `,i.classList.add("active"),i.querySelector(".overlay").addEventListener("click",u),i.querySelector(".close-span-btn").addEventListener("click",u)}function u(){i.classList.remove("active"),i.innerHTML=""}function I(e){const t=Math.round(e)/2,o=Math.floor(t),s=t%1>=.5,a=5-o-(s?1:0);let r="";for(let n=0;n<o;n++)r+='<img src="./cinemania/src/img/starfull.svg" alt="Full Star" class="star-icon" />';s&&(r+='<img src="./cinemania/src/img/starhalf.svg" alt="Half Star" class="star-icon" />');for(let n=0;n<a;n++)r+='<img src="./cinemania/src/img/starempty.svg" alt="Empty Star" class="star-icon" />';return r}async function S(){try{const e=await h(g,c.POPULAR_MOVIES),t=b(e.results),o=`${f}${c.IMG_W1280}${t.backdrop_path}`;l.style.backgroundImage=`url('${o}')`,l.innerHTML=`
   <div class="catalog-hero-overlay"></div>
   <div class="catalog-hero-content">
     <h1>${t.title}</h1>
@@ -55,4 +55,4 @@ import{a as p}from"./vendor-DGDcxXwr.js";(function(){const t=document.createElem
       </div>
     </div>
   `,t.classList.add("active");const a=m=>{m.key==="Escape"&&r()};document.addEventListener("keydown",a);function r(){t.classList.remove("active"),t.innerHTML="",document.removeEventListener("keydown",a)}t.querySelector(".close-span-btn-details").addEventListener("click",r),t.querySelector(".detail-overlay").addEventListener("click",r)}
-//# sourceMappingURL=main-CYhcnN-2.js.map
+//# sourceMappingURL=main-mVvKLAcC.js.map
