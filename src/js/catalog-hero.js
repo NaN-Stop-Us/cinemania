@@ -52,13 +52,13 @@ function generateStars(vote) {
   const emptyStars = 5 - fullStars - (hasHalfStar ? 1 : 0);
   let starsHtml = '';
   for (let i = 0; i < fullStars; i++) {
-    starsHtml += `<img src="./img/starfull1.svg" alt="Full Star" class="star-icon" />`;
+    starsHtml += `<img src="./src/img/starfull1.svg" alt="Full Star" class="star-icon" />`;
   }
   if (hasHalfStar) {
-    starsHtml += `<img src="./img/starhalf1.svg" alt="Half Star" class="star-icon" />`;
+    starsHtml += `<img src="./src/img/starhalf1.svg" alt="Half Star" class="star-icon" />`;
   }
   for (let i = 0; i < emptyStars; i++) {
-    starsHtml += `<img src="./img/starempty1.svg" alt="Empty Star" class="star-icon" />`;
+    starsHtml += `<img src="./src/img/starempty1.svg" alt="Empty Star" class="star-icon" />`;
   }
   return starsHtml;
 }
@@ -165,5 +165,3 @@ function showDetailsPopup(movie) {
  
   modal.querySelector('.detail-overlay').addEventListener('click', closeModal);
 }
-
-
