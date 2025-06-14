@@ -44,7 +44,7 @@ function closeTrailer() {
   modal.classList.remove('active');
   modal.innerHTML = '';
 }
-// Yıldızları hesapla ve SVG'ye dönüştür
+// Yıldızları hesapla ve SVG'ye dönüştürrr
 function generateStars(vote) {
   const rating = Math.round(vote) / 2;
   const fullStars = Math.floor(rating);
