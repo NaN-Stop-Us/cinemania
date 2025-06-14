@@ -9,13 +9,11 @@ let genreMap = {};
 const catalogHero = document.querySelector('#catalog-hero');
 const modal = document.getElementById('trailer-modal');
 
-// Rastgele popüler film seçimi
 function getRandomMovie(movies) {
   const randomIndex = Math.floor(Math.random() * movies.length);
   return movies[randomIndex];
 }
 
-// Trailer verisini çek
 async function getTrailerUrl(movieId) {
   try {
     const data = await fetchMovies(BASE_URL, ENDPOINTS.MOVIE_VIDEOS(movieId));
@@ -26,7 +24,6 @@ async function getTrailerUrl(movieId) {
   }
 }
 
-// Trailer gösterme fonksiyonu
 function showTrailer(youtubeUrl) {
   modal.innerHTML = `
     <div class="overlay"></div>
@@ -47,41 +44,59 @@ function closeTrailer() {
   modal.innerHTML = '';
 }
 
-// Inline SVG yükleyici
-async function inlineSVG(path) {
-  const res = await fetch(path);
-  const text = await res.text();
-  const parser = new DOMParser();
-  const svg = parser.parseFromString(text, 'image/svg+xml').documentElement;
-  svg.classList.add('star-icon');
-  return svg;
+function renderStarRating(rating, containerElement) {
+  if (typeof rating !== 'number' || rating < 0 || rating > 10) {
+    console.error('Rating must be a number between 0 and 10');
+    return;
+  }
+  const fullStarSVG = `
+    <svg class="star-icon" width="18" height="18" viewBox="0 0 24 24" fill="#F87719" xmlns="http://www.w3.org/2000/svg">
+      <path d="M12 2l3.09 6.26L22 9.27l-5 4.87L18.18 22 12 18.27 5.82 22 7 14.14l-5-4.87 6.91-1.01z"/>
+    </svg>`;
+  const halfStarSVG = `
+    <svg class="star-icon" width="18" height="18" viewBox="0 0 18 18" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <path d="M16.875 7.3125H10.8281L9 1.6875L7.1719 7.3125H1.125L6.0469 10.6875L4.1484 16.3125L9 12.7969L13.8516 16.3125L11.9531 10.6875L16.875 7.3125Z" stroke="url(#half-star-stroke)" stroke-linejoin="round"/>
+  <path d="M9 1.6875V12.7969L4.1484 16.3125L6.0469 10.6875L1.125 7.3125H7.1719L9 1.6875Z" fill="url(#half-star-fill)"/>
+  <defs>
+    <linearGradient id="half-star-stroke" x1="3.0488" y1="2.7325" x2="13.478" y2="16.7124" gradientUnits="userSpaceOnUse">
+      <stop stop-color="#F84119"/>
+      <stop offset="1" stop-color="#F89F19" stop-opacity="0.68"/>
+    </linearGradient>
+    <linearGradient id="half-star-fill" x1="2.0869" y1="2.7325" x2="12.1506" y2="9.4775" gradientUnits="userSpaceOnUse">
+      <stop stop-color="#F84119"/>
+      <stop offset="1" stop-color="#F89F19" stop-opacity="0.68"/>
+    </linearGradient>
+  </defs>
+</svg>
+`;
+  const emptyStarSVG = `
+    <svg width="18" height="18" viewBox="0 0 18 18" fill="none" xmlns="http://www.w3.org/2000/svg">
+<path d="M16.875 7.3125H10.8281L9 1.6875L7.17188 7.3125H1.125L6.04688 10.6875L4.14844 16.3125L9 12.7969L13.8516 16.3125L11.9531 10.6875L16.875 7.3125Z" stroke="url(#paint0_linear_148_6994)" stroke-linejoin="round"/>
+<defs>
+<linearGradient id="paint0_linear_148_6994" x1="3.04877" y1="2.73251" x2="13.478" y2="16.7124" gradientUnits="userSpaceOnUse">
+<stop stop-color="#F84119"/>
+<stop offset="1" stop-color="#F89F19" stop-opacity="0.68"/>
+</linearGradient>
+</defs>
+</svg>`;
+
+  const mappedRating = rating / 2;
+  const fullStars = Math.floor(mappedRating);
+  const hasHalfStar = mappedRating % 1 >= 0.5 ? 1 : 0;
+  const emptyStars = 5 - fullStars - hasHalfStar;
+
+  containerElement.innerHTML = '';
+  const appendSVG = (svgString) => {
+    const temp = document.createElement('div');
+    temp.innerHTML = svgString.trim();
+    const svgElement = temp.firstElementChild;
+    containerElement.appendChild(svgElement);
+  };
+  for (let i = 0; i < fullStars; i++) appendSVG(fullStarSVG);
+  if (hasHalfStar) appendSVG(halfStarSVG);
+  for (let i = 0; i < emptyStars; i++) appendSVG(emptyStarSVG);
 }
 
-// Yıldızları SVG olarak yükle
-async function generateStars(vote) {
-  const rating = Math.round(vote) / 2;
-  const fullStars = Math.floor(rating);
-  const hasHalfStar = rating % 1 >= 0.5;
-  const emptyStars = 5 - fullStars - (hasHalfStar ? 1 : 0);
-  const container = document.createElement('div');
-  container.classList.add('star-icons');
-
-  for (let i = 0; i < fullStars; i++) {
-    const svg = await inlineSVG('./img/star-full.svg');
-    container.appendChild(svg);
-  }
-  if (hasHalfStar) {
-    const svg = await inlineSVG('./img/star-half.svg');
-    container.appendChild(svg);
-  }
-  for (let i = 0; i < emptyStars; i++) {
-    const svg = await inlineSVG('./img/star-empty.svg');
-    container.appendChild(svg);
-  }
-  return container;
-}
-
-// Katalog hero'yu başlat
 async function initCatalogHero() {
   try {
     const data = await fetchMovies(BASE_URL, ENDPOINTS.POPULAR_MOVIES);
@@ -103,8 +118,7 @@ async function initCatalogHero() {
     `;
 
     const starsContainer = catalogHero.querySelector('.stars');
-    const starsDom = await generateStars(movie.vote_average);
-    starsContainer.appendChild(starsDom);
+    renderStarRating(movie.vote_average, starsContainer);
 
     catalogHero.querySelector('.more-details').addEventListener('click', () => {
       showDetailsPopup(movie);
