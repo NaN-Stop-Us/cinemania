@@ -1,18 +1,18 @@
 window.addEventListener("DOMContentLoaded", () => {
     const toggle = document.getElementById('theme-toggle');
-    const body = document.body;
+    const html = document.documentElement; // html elementini hedef al
    
     const savedTheme = localStorage.getItem('theme');
     if (savedTheme === 'light') {
-      body.classList.add('light-theme');
+      html.setAttribute('data-theme', 'light');
     } else {
-      body.classList.remove('light-theme'); 
-      localStorage.setItem('theme', 'dark');
+      html.setAttribute('data-theme', 'dark'); 
     }
    
     toggle.addEventListener('click', () => {
-      body.classList.toggle('light-theme');
-      const isLight = body.classList.contains('light-theme');
-      localStorage.setItem('theme', isLight ? 'light' : 'dark');
+      const currentTheme = html.getAttribute('data-theme');
+      const newTheme = currentTheme === 'light' ? 'dark' : 'light';
+      html.setAttribute('data-theme', newTheme);
+      localStorage.setItem('theme', newTheme);
     });
   });
