@@ -49,6 +49,33 @@
     align-items: center;
 }
 
+.pagination {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 0.5rem;
+  margin: 2rem 0;
+  flex-wrap: wrap;
+}
+
+.page-btn {
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  background: transparent;
+  border: 1px solid #aaa;
+  color: #fff;
+  font-weight: bold;
+  cursor: pointer;
+  transition: all 0.3s;
+}
+
+.page-btn.active {
+  background: linear-gradient(to bottom, #FFA800, #FF6B00);
+  color: white;
+  border: none;
+}
+
 
 /* Movie Detail Sayfası */
 

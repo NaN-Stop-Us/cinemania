@@ -5,7 +5,7 @@ import {
   IMG_BASE_URL,
   fetchGenres,
 } from './fetchApi.js';
-import { renderStarRating,  } from './catalog-hero.js';
+import { renderStarRating } from './catalog-hero.js';
 
 const searchInput = document.getElementById('searchInput');
 const yearFilter = document.getElementById('yearFilter');
@@ -13,11 +13,16 @@ const searchBtn = document.getElementById('searchBtn');
 const movieResults = document.getElementById('movieResults');
 const noResult = document.getElementById('noResult');
 
+let currentPage = 1;
+let totalPages = 1;
+
 // Sayfa ilk yüklendiğinde upcoming filmleri getir
 document.addEventListener('DOMContentLoaded', async () => {
   try {
-    const data = await fetchMovies(BASE_URL, ENDPOINTS.UPCOMING_MOVIES);
+    const data = await fetchMovies(BASE_URL, ENDPOINTS.UPCOMING_MOVIES, { page: currentPage });
+    totalPages = data.total_pages;
     renderMovies(data.results);
+    renderPagination(currentPage, totalPages);
   } catch (error) {
     noResult.innerHTML =
       '<p>OOPS... We are very sorry! We don`t have any results matching your search. </p>';
@@ -46,6 +51,10 @@ async function handleSearch() {
 
   if (!query) return;
 
+  currentQuery = query;
+  currentYear = year;
+ 
+
   try {
     const data = await fetchMovies(BASE_URL, ENDPOINTS.SEARCH_MOVIES, {
       query,
@@ -53,6 +62,7 @@ async function handleSearch() {
     });
 
     renderMovies(data.results);
+    
   } catch (error) {
     noResult.innerHTML =
       '<p>OOPS... We are very sorry! We don`t have any results matching your search. </p>';
@@ -60,15 +70,70 @@ async function handleSearch() {
   }
 }
 
+
+
 // Butona tıklanınca
 searchBtn.addEventListener('click', handleSearch);
 
 // Enter tuşuna basınca
-searchInput.addEventListener('keydown', (event) => {
+searchInput.addEventListener('keydown', event => {
   if (event.key === 'Enter') {
     handleSearch();
   }
 });
+
+// sayfa fonksiyonu
+
+function renderPagination(current, total) {
+  const pagination = document.getElementById('pagination');
+  pagination.innerHTML = '';
+
+  const createBtn = (text, page, isActive = false) => {
+    const btn = document.createElement('button');
+    btn.textContent = text;
+    btn.className = 'page-btn';
+    if (isActive) btn.classList.add('active');
+    btn.addEventListener('click', () => {
+      if (page !== currentPage) {
+        currentPage = page;
+        loadUpcomingPage(page); // 👇 burası önemli
+      }
+    });
+    return btn;
+  };
+
+  if (current > 1) pagination.appendChild(createBtn('‹', current - 1));
+
+  const maxVisible = 3;
+  const start = Math.max(1, current - 1);
+  const end = Math.min(total, start + maxVisible - 1);
+
+  for (let i = start; i <= end; i++) {
+    pagination.appendChild(createBtn(String(i).padStart(2, '0'), i, i === current));
+  }
+
+  if (end < total) {
+    const dots = document.createElement('span');
+    dots.textContent = '...';
+    dots.style.color = '#aaa';
+    pagination.appendChild(dots);
+    pagination.appendChild(createBtn(String(total).padStart(2, '0'), total));
+  }
+
+  if (current < total) pagination.appendChild(createBtn('›', current + 1));
+}
+
+async function loadUpcomingPage(page) {
+  try {
+    const data = await fetchMovies(BASE_URL, ENDPOINTS.UPCOMING_MOVIES, { page });
+    renderMovies(data.results);
+    renderPagination(page, data.total_pages);
+  } catch (error) {
+    noResult.innerHTML =
+      '<p>OOPS... We are very sorry! We don`t have any results matching your search. </p>';
+    console.error('Upcoming fetch hatası:', error);
+  }
+}
 
 // popup fonksiyonu
 function showDetailsPopup(movie) {
@@ -88,7 +153,9 @@ function showDetailsPopup(movie) {
             <span class="value-box">${movie.vote_average.toFixed(1)}</span> /
             <span class="value-box">${movie.vote_count}</span>
           </p>
-          <p><strong>Popularity:</strong> <span>${movie.popularity.toFixed(1)}</span></p>
+          <p><strong>Popularity:</strong> <span>${movie.popularity.toFixed(
+            1
+          )}</span></p>
           <p><strong>Genre:</strong> <span>${genres}</span></p>
           <p><strong>ABOUT</strong></p>
           <div class="scrollable-description">${movie.overview}</div>
@@ -111,7 +178,9 @@ function showDetailsPopup(movie) {
     document.removeEventListener('keydown', escHandler);
   }
 
-  modal.querySelector('.close-span-btn-details').addEventListener('click', closeModal);
+  modal
+    .querySelector('.close-span-btn-details')
+    .addEventListener('click', closeModal);
   modal.querySelector('.detail-overlay').addEventListener('click', closeModal);
 }
 
@@ -120,7 +189,8 @@ function renderMovies(movies) {
   movieResults.innerHTML = '';
 
   if (!movies || movies.length === 0) {
-    noResult.innerHTML = "<p>OOPS... <br> We are very sorry! <br>  We don`t have any results matching your search. </p>";
+    noResult.innerHTML =
+      '<p>OOPS... <br> We are very sorry! <br>  We don`t have any results matching your search. </p>';
     return;
   }
 
@@ -129,12 +199,18 @@ function renderMovies(movies) {
     card.classList.add('movie-card');
 
     card.innerHTML = `
-      <img src="${movie.poster_path ? IMG_BASE_URL + '/w500' + movie.poster_path : 'https://via.placeholder.com/500x750?text=No+Image'}" alt="${movie.title}" />
+      <img src="${
+        movie.poster_path
+          ? IMG_BASE_URL + '/w500' + movie.poster_path
+          : 'https://via.placeholder.com/500x750?text=No+Image'
+      }" alt="${movie.title}" />
       <h3>${movie.title}</h3>
       <div class="star-container"></div>
       <div class="movie-meta">
         <span class="genre-text">${getGenreText(movie.genre_ids)}</span>
-        <span class="year-text">${movie.release_date ? movie.release_date.split('-')[0] : 'Unknown'}</span>
+        <span class="year-text">${
+          movie.release_date ? movie.release_date.split('-')[0] : 'Unknown'
+        }</span>
       </div>
     `;
 
@@ -149,8 +225,6 @@ function renderMovies(movies) {
     movieResults.appendChild(card);
   });
 }
-
-
 
 function getGenreText(ids = []) {
   if (!Array.isArray(ids)) return '';
