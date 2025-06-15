@@ -19,7 +19,9 @@ let totalPages = 1;
 // Sayfa ilk yüklendiğinde upcoming filmleri getir
 document.addEventListener('DOMContentLoaded', async () => {
   try {
-    const data = await fetchMovies(BASE_URL, ENDPOINTS.UPCOMING_MOVIES, { page: currentPage });
+    const data = await fetchMovies(BASE_URL, ENDPOINTS.UPCOMING_MOVIES, {
+      page: currentPage,
+    });
     totalPages = data.total_pages;
     renderMovies(data.results);
     renderPagination(currentPage, totalPages);
@@ -35,7 +37,7 @@ let genreMap = {};
 
 document.addEventListener('DOMContentLoaded', async () => {
   try {
-    genreMap = await fetchGenres(); // 🎭 tür verisi buradan geliyor
+    genreMap = await fetchGenres(); // tür verisi buradan geliyor
     const data = await fetchMovies(BASE_URL, ENDPOINTS.UPCOMING_MOVIES);
     renderMovies(data.results);
   } catch (error) {
@@ -53,7 +55,6 @@ async function handleSearch() {
 
   currentQuery = query;
   currentYear = year;
- 
 
   try {
     const data = await fetchMovies(BASE_URL, ENDPOINTS.SEARCH_MOVIES, {
@@ -62,15 +63,12 @@ async function handleSearch() {
     });
 
     renderMovies(data.results);
-    
   } catch (error) {
     noResult.innerHTML =
       '<p>OOPS... We are very sorry! We don`t have any results matching your search. </p>';
     console.error('Search fetch hatası:', error);
   }
 }
-
-
 
 // Butona tıklanınca
 searchBtn.addEventListener('click', handleSearch);
@@ -96,20 +94,25 @@ function renderPagination(current, total) {
     btn.addEventListener('click', () => {
       if (page !== currentPage) {
         currentPage = page;
-        loadUpcomingPage(page); // 👇 burası önemli
+        loadUpcomingPage(page);
       }
     });
     return btn;
   };
 
-  if (current > 1) pagination.appendChild(createBtn('‹', current - 1));
-
+  // ⏮ İlk sayfaya dön (yalnızca current > 1 ise göster)
+  if (current > 1) {
+    pagination.appendChild(createBtn('⏮', 1));
+    pagination.appendChild(createBtn('‹', current - 1));
+  }
   const maxVisible = 3;
   const start = Math.max(1, current - 1);
   const end = Math.min(total, start + maxVisible - 1);
 
   for (let i = start; i <= end; i++) {
-    pagination.appendChild(createBtn(String(i).padStart(2, '0'), i, i === current));
+    pagination.appendChild(
+      createBtn(String(i).padStart(2, '0'), i, i === current)
+    );
   }
 
   if (end < total) {
@@ -120,12 +123,17 @@ function renderPagination(current, total) {
     pagination.appendChild(createBtn(String(total).padStart(2, '0'), total));
   }
 
-  if (current < total) pagination.appendChild(createBtn('›', current + 1));
+  if (current < total) {
+    pagination.appendChild(createBtn('›', current + 1));
+    pagination.appendChild(createBtn('⏭', total));
+  }
 }
 
 async function loadUpcomingPage(page) {
   try {
-    const data = await fetchMovies(BASE_URL, ENDPOINTS.UPCOMING_MOVIES, { page });
+    const data = await fetchMovies(BASE_URL, ENDPOINTS.UPCOMING_MOVIES, {
+      page,
+    });
     renderMovies(data.results);
     renderPagination(page, data.total_pages);
   } catch (error) {
@@ -217,7 +225,7 @@ function renderMovies(movies) {
     const starContainer = card.querySelector('.star-container');
     renderStarRating(movie.vote_average, starContainer);
 
-    // 🎯 Kart tıklanınca detay popup aç
+    // Kart tıklanınca detay popup aç
     card.addEventListener('click', () => {
       showDetailsPopup(movie);
     });
