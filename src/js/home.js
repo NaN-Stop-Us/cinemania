@@ -85,6 +85,8 @@ function getCurrentMonthRange() {
   return { start, end };
 }
 
+// localStorage
+
 function isInLibrary(id) {
   const saved = JSON.parse(localStorage.getItem('myLibrary')) || [];
   return saved.some(film => film.id === id);
@@ -152,7 +154,7 @@ async function loadUpcomingMovie() {
 
     const btn = upcomingCard.querySelector('.upcoming__btn');
     btn.addEventListener('click', () => toggleLibrary(movie, btn));
-    checkLibraryState(movie.id, btn); // <- Eklenen satır ✅
+    checkLibraryState(movie.id, btn);
 
   } catch (err) {
     upcomingCard.innerHTML = `<p class="upcoming__info">Oops! Something went wrong while loading the movie.</p>`;
