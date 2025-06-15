@@ -1,20 +1,21 @@
-import { fetchMovies, BASE_URL, ENDPOINTS, IMG_BASE_URL } from './fetchApi.js';
+import { fetchMovies, BASE_URL, ENDPOINTS, IMG_BASE_URL, fetchGenres } from './fetchApi.js';
 import { renderStarRating } from './catalog-hero.js';
-
 
 const searchInput = document.getElementById('searchInput');
 const yearFilter = document.getElementById('yearFilter');
 const searchBtn = document.getElementById('searchBtn');
 const movieResults = document.getElementById('movieResults');
+const noResult  = document.getElementById('noResult');
 
 // Sayfa ilk yüklendiğinde upcoming filmleri getir
-document.addEventListener("DOMContentLoaded", async () => {
+document.addEventListener('DOMContentLoaded', async () => {
   try {
     const data = await fetchMovies(BASE_URL, ENDPOINTS.UPCOMING_MOVIES);
     renderMovies(data.results);
   } catch (error) {
-    movieResults.innerHTML = "<p>Film verileri yüklenemedi.</p>";
-    console.error("Upcoming fetch hatası:", error);
+    noResult.innerHTML =
+      '<p>OOPS... We are very sorry! We don`t have any results matching your search. </p>';
+    console.error('Upcoming fetch hatası:', error);
   }
 });
 
@@ -33,8 +34,8 @@ searchBtn.addEventListener('click', async () => {
 
     renderMovies(data.results);
   } catch (error) {
-    movieResults.innerHTML = "<p>Arama başarısız oldu.</p>";
-    console.error("Search fetch hatası:", error);
+    noResult.innerHTML = '<p>OOPS... We are very sorry! We don`t have any results matching your search. </p>';
+    console.error('Search fetch hatası:', error);
   }
 });
 
@@ -43,7 +44,7 @@ function renderMovies(movies) {
   movieResults.innerHTML = '';
 
   if (!movies || movies.length === 0) {
-    movieResults.innerHTML = '<p>Film bulunamadı.</p>';
+    noResult.innerHTML ="<p>OOPS... <br> We are very sorry! <br>  We don`t have any results matching your search. </p>";
     return;
   }
 
@@ -53,10 +54,16 @@ function renderMovies(movies) {
 
     // Kart içeriğini oluştur
     card.innerHTML = `
-      <img src="${movie.poster_path ? IMG_BASE_URL + '/w500' + movie.poster_path : 'https://via.placeholder.com/500x750?text=No+Image'}" alt="${movie.title}" />
+      <img src="${
+        movie.poster_path
+          ? IMG_BASE_URL + '/w500' + movie.poster_path
+          : 'https://via.placeholder.com/500x750?text=No+Image'
+      }" alt="${movie.title}" />
       <h3>${movie.title}</h3>
       <div class="star-container"></div>
-      <p>${movie.release_date ? movie.release_date.split('-')[0] : 'Unknown'}</p>
+      <p>${
+        movie.release_date ? movie.release_date.split('-')[0] : 'Unknown'
+      }</p>
     `;
 
     // Yıldızları basacağımız container

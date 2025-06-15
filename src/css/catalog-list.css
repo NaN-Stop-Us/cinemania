@@ -1,5 +1,7 @@
 .catalog-filter {
     margin-top: 80px;
+    display: flex;
+    justify-content: center;
 }
 
 .movie-grid {
@@ -8,6 +10,9 @@
   gap: 2rem;
   padding: 2rem;
   margin-bottom: 48px;
+  max-width: 1280px;
+  margin: 0 auto;
+  
 }
 
 .movie-card {
@@ -26,7 +31,7 @@
 }
 
 .movie-card:hover {
-  transform: scale(1.05);
+  transform: scale(1.02);
 }
 
 .star-container {
@@ -34,4 +39,12 @@
   gap: 2px;
   justify-content: center;
   margin: 0.5rem 0;
+}
+
+#noResult p {
+    font-size: 32px;
+    line-height: 36px;
+    font-weight: 400;
+    text-align: center;
+    align-items: center;
 }
