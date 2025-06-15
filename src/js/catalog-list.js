@@ -19,6 +19,20 @@ document.addEventListener('DOMContentLoaded', async () => {
   }
 });
 
+let genreMap = {};
+
+document.addEventListener("DOMContentLoaded", async () => {
+  try {
+    genreMap = await fetchGenres(); // 🎭 tür verisi buradan geliyor
+    const data = await fetchMovies(BASE_URL, ENDPOINTS.UPCOMING_MOVIES);
+    renderMovies(data.results);
+  } catch (error) {
+    movieResults.innerHTML = "<p>Film verileri yüklenemedi.</p>";
+    console.error("Hata:", error);
+  }
+});
+
+
 // Arama butonuna tıklanınca
 searchBtn.addEventListener('click', async () => {
   const query = searchInput.value.trim();
@@ -54,22 +68,23 @@ function renderMovies(movies) {
 
     // Kart içeriğini oluştur
     card.innerHTML = `
-      <img src="${
-        movie.poster_path
-          ? IMG_BASE_URL + '/w500' + movie.poster_path
-          : 'https://via.placeholder.com/500x750?text=No+Image'
-      }" alt="${movie.title}" />
-      <h3>${movie.title}</h3>
-      <div class="star-container"></div>
-      <p>${
-        movie.release_date ? movie.release_date.split('-')[0] : 'Unknown'
-      }</p>
-    `;
+  <img src="${movie.poster_path ? IMG_BASE_URL + '/w500' + movie.poster_path : 'https://via.placeholder.com/500x750?text=No+Image'}" alt="${movie.title}" />
+  <h3>${movie.title}</h3>
+  <div class="star-container"></div>
+  <div class="movie-meta">
+    <span class="genre-text">${getGenreText(movie.genre_ids)}</span>
+    <span class="year-text">${movie.release_date ? movie.release_date.split('-')[0] : 'Unknown'}</span>
+  </div>
+`;
 
     // Yıldızları basacağımız container
     const starContainer = card.querySelector('.star-container');
     renderStarRating(movie.vote_average, starContainer);
 
     movieResults.appendChild(card);
+    function getGenreText(ids = []) {
+  if (!Array.isArray(ids)) return '';
+  return ids.map(id => genreMap[id]).filter(Boolean).join(', ');
+}
   });
 }
