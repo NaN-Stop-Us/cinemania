@@ -76,7 +76,7 @@
     width: 100%;
     height: 100%; }
 
-/* home section */
+/* weekly trends-home section */
 
     .weekly-trends {
   padding: 80px 0 60px;
@@ -183,7 +183,7 @@
   color: var(--secondary-text);
 }
 
-/* White Theme Home Section */
+/* light theme weekly trends */
 
 body.light-theme .weekly-trends {
   background-color: #FFFFFF;
@@ -215,4 +215,110 @@ body.light-theme .weekly-card__info {
 
 body.light-theme .weekly-card__meta {
   color: #DDDDDD;
+}
+
+/* upcoming this month */
+.upcoming {
+  padding: 80px 0 100px;
+  background-color: var(--background);
+}
+
+.upcoming__container {
+  width: 1280px;
+  margin: 0 auto;
+  padding: 0 32px;
+}
+
+.upcoming__title {
+  font-size: 28px;
+  font-weight: 700;
+  text-transform: uppercase;
+  color: var(--white);
+  margin-bottom: 28px;
+}
+
+.upcoming__card {
+  display: flex;
+  gap: 24px;
+}
+
+.upcoming__img {
+  width: 805px;
+  border-radius: 5px;
+  object-fit: cover;
+}
+
+.upcoming__info {
+  color: var(--white);
+  font-family: var(--font-family);
+  max-width: 100%;
+}
+
+.upcoming__info h3 {
+  font-size: 32px;
+  font-weight: 700;
+  margin-bottom: 24px;
+}
+
+.upcoming__info span {
+  color: #F87719;
+  font-weight: 500;
+}
+
+.upcoming__info p {
+  font-size: 14px;
+  line-height: 1.5;
+  margin-bottom: 12px;
+  color: var(--secondary-text);
+}
+
+.upcoming__btn {
+  background: linear-gradient(to right, #FFCA0F, #F87719);
+  border: none;
+  padding: 12px 24px;
+  border-radius: 74px;
+  font-size: 14px;
+  color: var(--background);
+  margin-top: 24px;
+  cursor: pointer;
+}
+
+.upcoming__btn:hover {
+  background: #ffffff;
+  color: #F87719;
+}
+
+/*light theme upcoming this month*/
+body.light-theme .upcoming {
+  background-color: #FFFFFF;
+}
+
+body.light-theme .upcoming__title {
+  color: #000000;
+}
+
+body.light-theme .upcoming__info {
+  color: #000000;
+}
+
+body.light-theme .upcoming__info h3 {
+  color: #000000;
+}
+
+body.light-theme .upcoming__info span {
+  color: #F87719;
+}
+
+body.light-theme .upcoming__info p {
+  color: #444444;
+}
+
+body.light-theme .upcoming__btn {
+  background: linear-gradient(to right, #FFCA0F, #F87719);
+  color: #FFFFFF;
+}
+
+body.light-theme .upcoming__btn:hover {
+  background: #F87719;
+  color: #FFFFFF;
 }

@@ -2,6 +2,8 @@ import {
   BASE_URL,
   ENDPOINTS,
   fetchMovies,
+  fetchGenres,
+  IMG_BASE_URL,
 } from './fetchApi.js';
 
 import { showDetailsPopup } from './catalog-hero.js';
@@ -57,7 +59,7 @@ async function loadWeeklyTrends() {
   }
 }
 
-// ✅ Modal tetikleyici
+// Modal tetikleyici
 weeklyListEl.addEventListener('click', async e => {
   const card = e.target.closest('.weekly-card');
   if (!card) return;
@@ -69,7 +71,7 @@ weeklyListEl.addEventListener('click', async e => {
     const data = await fetchMovies(BASE_URL, ENDPOINTS.TRENDING_WEEK);
     const movie = data.results.find(film => film.id === Number(movieId));
     if (movie) {
-      showDetailsPopup(movie); // 💥 Modal burada açılıyor
+      showDetailsPopup(movie);
     }
   } catch (error) {
     console.error('Modal açılırken hata:', error);
@@ -77,3 +79,85 @@ weeklyListEl.addEventListener('click', async e => {
 });
 
 document.addEventListener('DOMContentLoaded', loadWeeklyTrends);
+
+// upcoming this month
+
+const upcomingCard = document.getElementById('upcoming-card');
+
+function getCurrentMonthRange() {
+  const now = new Date();
+  const year = now.getFullYear();
+  const month = now.getMonth();
+  const start = new Date(year, month, 1).toISOString().split('T')[0];
+  const end = new Date(year, month + 1, 0).toISOString().split('T')[0];
+  return { start, end };
+}
+
+function isInLibrary(id) {
+  const saved = JSON.parse(localStorage.getItem('my-library')) || [];
+  return saved.some(film => film.id === id);
+}
+
+function toggleLibrary(film, button) {
+  const saved = JSON.parse(localStorage.getItem('my-library')) || [];
+  const exists = saved.find(f => f.id === film.id);
+
+  if (exists) {
+    const updated = saved.filter(f => f.id !== film.id);
+    localStorage.setItem('my-library', JSON.stringify(updated));
+    button.textContent = 'Add to My Library';
+  } else {
+    saved.push(film);
+    localStorage.setItem('my-library', JSON.stringify(saved));
+    button.textContent = 'Remove from My Library';
+  }
+}
+
+async function loadUpcomingMovie() {
+  try {
+    const { start, end } = getCurrentMonthRange();
+    const data = await fetchMovies(BASE_URL, ENDPOINTS.UPCOMING_MOVIES);
+    const genresMap = await fetchGenres();
+
+    const filtered = data.results.filter(movie =>
+      movie.release_date >= start && movie.release_date <= end
+    );
+
+    if (!filtered.length) {
+      upcomingCard.innerHTML = `<p class="upcoming__info">No upcoming movies found this month.</p>`;
+      return;
+    }
+
+    const movie = filtered[Math.floor(Math.random() * filtered.length)];
+
+    const image = movie.backdrop_path
+      ? `${IMG_BASE_URL}/original${movie.backdrop_path}`
+      : 'https://via.placeholder.com/800x450';
+
+    const genreNames = movie.genre_ids.map(id => genresMap[id] || 'Unknown').join(', ');
+    const isSaved = isInLibrary(movie.id);
+
+    upcomingCard.innerHTML = `
+      <img class="upcoming__img" src="${image}" alt="${movie.title}" />
+      <div class="upcoming__info">
+        <h3>${movie.title}</h3>
+        <p><strong>Release date:</strong> <span>${movie.release_date}</span></p>
+        <p><strong>Vote / Votes:</strong> <span>${movie.vote_average.toFixed(1)}</span> / <span>${movie.vote_count}</span></p>
+        <p><strong>Popularity:</strong> ${movie.popularity.toFixed(1)}</p>
+        <p><strong>Genre:</strong> ${genreNames}</p>
+        <p><strong>ABOUT</strong></p>
+        <p>${movie.overview}</p>
+        <button class="upcoming__btn">${isSaved ? 'Remove from My Library' : 'Add to My Library'}</button>
+      </div>
+    `;
+
+    const btn = upcomingCard.querySelector('.upcoming__btn');
+    btn.addEventListener('click', () => toggleLibrary(movie, btn));
+
+  } catch (err) {
+    upcomingCard.innerHTML = `<p class="upcoming__info">Oops! Something went wrong while loading the movie.</p>`;
+    console.error(err);
+  }
+}
+
+document.addEventListener('DOMContentLoaded', loadUpcomingMovie);
