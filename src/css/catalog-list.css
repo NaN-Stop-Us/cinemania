@@ -16,7 +16,7 @@
 }
 
 .movie-card {
-  background-color: #1c1c1c;
+  background-color: #111111;
   color: white;
   border-radius: 8px;
   overflow: hidden;
@@ -47,4 +47,160 @@
     font-weight: 400;
     text-align: center;
     align-items: center;
+}
+
+
+/* Movie Detail Sayfası */
+
+.movie-detail-modal {
+    position: fixed;
+    inset: 0;
+    z-index: 9999;
+    display: none;
+}
+
+.movie-detail-modal.active {
+    display: block;
+}
+
+.detail-overlay {
+    position: absolute;
+    inset: 0;
+    background: rgba(0, 0, 0, 0.7);
+}
+
+.detail-box {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    background: #111;
+    color: white;
+    width: 800px;
+    
+    max-width: 90%;
+    border-radius: 20px;
+    
+    box-shadow: 0 0 20px #F87719;
+}
+
+.detail-content {
+    display: flex;
+    gap: 32px;
+}
+
+.detail-poster {
+    width: 375px;
+    border-radius: 8px;
+    flex-shrink: 0;
+    margin-left: 60px;
+    margin-bottom: 60px;
+    margin-top: 60px;
+    
+}
+
+.detail-info {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    margin-right: 60px;
+}
+
+.detail-info h2 {
+    font-size: 28px;
+    margin-bottom: 16px;
+    margin-top: 60px;
+}
+
+/* P satırları etiket + veri için hizalı */
+.detail-info p {
+    font-size: 16px;
+    margin-bottom: 10px;
+    line-height: 1.6;
+    display: flex;
+    align-items: center;
+    margin-top: 10.5px;
+}
+
+.detail-info p strong {
+    display: inline-block;
+    width: 120px;
+    color: #aaa;
+    font-weight: 600;
+    margin-right: 60px;
+}
+
+.detail-info p span {
+    color: white;
+    
+}
+
+.detail-info p .value-box{
+    color: black;
+}
+
+/* Vote box'ları için özel kutu */
+.value-box {
+    display: inline-block;
+    background: white;
+    color: #111;
+    padding: 2px 8px;
+    border-radius: 6px;
+    font-weight: bold;
+    font-size: 14px;
+    margin: 0 4px;
+}
+
+.scrollable-description {
+    max-height: 160px;
+    overflow-y: auto;
+    padding-right: 8px;
+    line-height: 1.6;
+    margin-top: 8px;
+}
+
+.add-library {
+    margin-top: auto;
+    align-self: flex-start;
+    background: transparent;
+    border: 1px solid #F87719;
+    color: white;
+    padding: 10px 20px;
+    border-radius: 30px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    margin-top: 24px;
+}
+
+.add-library:hover {
+    background: #F87719;
+    color: #111;
+}
+
+.close-span-btn-details {
+    position: absolute;
+    top: 8px;
+    right: 18px;
+    background: transparent;
+    border: none;
+    cursor: pointer;
+    padding: 4px;
+    z-index: 5;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: transform 0.2s ease;
+}
+
+.close-span-btn-details span {
+    font-size: 28px;
+    color: white;
+    transition: color 0.3s ease, transform 0.3s ease;
+    font-weight: bold;
+    line-height: 1;
+}
+
+.close-span-btn-details:hover span {
+    color: #F87719;
+    transform: scale(1.2);
 }
