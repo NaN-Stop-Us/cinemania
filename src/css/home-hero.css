@@ -182,3 +182,29 @@
   font-size: 14px;
   color: var(--secondary-text);
 }
+
+/* White Theme Home Section */
+
+body.light-theme .weekly-trends {
+  background-color: #FFFFFF;
+}
+
+body.light-theme .weekly-trends__title {
+  color: #000000;
+}
+
+body.light-theme .weekly-trends__link {
+  color: #F87719;
+}
+
+body.light-theme .weekly-trends__link:hover {
+  color: #FF8C00;
+}
+
+body.light-theme .weekly-card__info {
+  color: #000000;
+}
+
+body.light-theme .weekly-card__meta {
+  color: #444444;
+}
