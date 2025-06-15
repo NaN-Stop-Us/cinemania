@@ -82,9 +82,13 @@ function renderMovies(movies) {
     renderStarRating(movie.vote_average, starContainer);
 
     movieResults.appendChild(card);
-    function getGenreText(ids = []) {
+  function getGenreText(ids = []) {
   if (!Array.isArray(ids)) return '';
-  return ids.map(id => genreMap[id]).filter(Boolean).join(', ');
+  return ids
+    .map(id => genreMap[id])
+    .filter(Boolean)
+    .slice(0, 2) // sadece ilk 2 genre
+    .join(', ');
 }
   });
 }
