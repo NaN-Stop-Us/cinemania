@@ -89,8 +89,8 @@ html, body {
 /* GoIT Students Link Animasyonu */
 .goit-link {
   position: relative;
-  color: #F87719 !important;
-  text-decoration: none !important;
+  color: #F87719 ;
+  text-decoration: none ;
   font-weight: bold;
   padding: 0 5px;
   animation: glow 2s ease-in-out infinite;
