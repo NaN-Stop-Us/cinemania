@@ -1,3 +1,4 @@
+// fetchApi
 import {
   BASE_URL,
   ENDPOINTS,
@@ -6,8 +7,10 @@ import {
   IMG_BASE_URL,
 } from './fetchApi.js';
 
+// Catalog import
 import { showDetailsPopup } from './catalog-hero.js';
 
+//WEEKLY TRENDS//
 const weeklyListEl = document.querySelector('#weekly-trends-list');
 
 function getFirstThree(arr) {
@@ -15,35 +18,26 @@ function getFirstThree(arr) {
 }
 
 function renderWeeklyCards(movies) {
-  const markup = movies
-    .map(movie => {
-      const {
-        id,
-        title,
-        poster_path,
-        release_date,
-        vote_average,
-      } = movie;
+  const markup = movies.map(movie => {
+    const { id, title, poster_path, release_date, vote_average } = movie;
+    const year = release_date ? release_date.slice(0, 4) : 'N/A';
+    const poster = poster_path
+      ? `${IMG_BASE_URL}/w500${poster_path}`
+      : 'https://via.placeholder.com/395x574?text=No+Image';
 
-      const year = release_date ? release_date.slice(0, 4) : 'N/A';
-      const poster = poster_path
-        ? `https://image.tmdb.org/t/p/w500${poster_path}`
-        : 'https://via.placeholder.com/395x574?text=No+Image';
-
-      return `
-        <li class="weekly-card" data-id="${id}">
-          <div class="weekly-card__image-wrapper">
-            <img src="${poster}" alt="${title}" class="weekly-card__image" />
-            <div class="weekly-card__overlay"></div>
-          </div>
-          <div class="weekly-card__info">
-            <h3 class="weekly-card__title">${title}</h3>
-            <p class="weekly-card__meta">${year} | ⭐ ${vote_average.toFixed(1)}</p>
-          </div>
-        </li>
-      `;
-    })
-    .join('');
+    return `
+      <li class="weekly-card" data-id="${id}">
+        <div class="weekly-card__image-wrapper">
+          <img src="${poster}" alt="${title}" class="weekly-card__image" />
+          <div class="weekly-card__overlay"></div>
+        </div>
+        <div class="weekly-card__info">
+          <h3 class="weekly-card__title">${title}</h3>
+          <p class="weekly-card__meta">${year} | ⭐ ${vote_average.toFixed(1)}</p>
+        </div>
+      </li>
+    `;
+  }).join('');
 
   weeklyListEl.innerHTML = markup;
 }
@@ -59,28 +53,26 @@ async function loadWeeklyTrends() {
   }
 }
 
-// Modal tetikleyici
+// modal ekran
 weeklyListEl.addEventListener('click', async e => {
   const card = e.target.closest('.weekly-card');
   if (!card) return;
 
-  const movieId = card.dataset.id;
+  const movieId = Number(card.dataset.id);
   if (!movieId) return;
 
   try {
     const data = await fetchMovies(BASE_URL, ENDPOINTS.TRENDING_WEEK);
-    const movie = data.results.find(film => film.id === Number(movieId));
+    const movie = data.results.find(film => film.id === movieId);
     if (movie) {
       showDetailsPopup(movie);
     }
   } catch (error) {
-    console.error('Modal açılırken hata:', error);
+    console.error('Modal error:', error);
   }
 });
 
-document.addEventListener('DOMContentLoaded', loadWeeklyTrends);
-
-// upcoming this month
+// UPCOMING THIS MONTH
 
 const upcomingCard = document.getElementById('upcoming-card');
 
@@ -94,23 +86,30 @@ function getCurrentMonthRange() {
 }
 
 function isInLibrary(id) {
-  const saved = JSON.parse(localStorage.getItem('my-library')) || [];
+  const saved = JSON.parse(localStorage.getItem('myLibrary')) || [];
   return saved.some(film => film.id === id);
 }
 
-function toggleLibrary(film, button) {
-  const saved = JSON.parse(localStorage.getItem('my-library')) || [];
-  const exists = saved.find(f => f.id === film.id);
+function toggleLibrary(movie, button) {
+  const libraryKey = 'myLibrary';
+  let library = JSON.parse(localStorage.getItem(libraryKey)) || [];
+  const exists = library.find(item => item.id === movie.id);
 
   if (exists) {
-    const updated = saved.filter(f => f.id !== film.id);
-    localStorage.setItem('my-library', JSON.stringify(updated));
+    library = library.filter(item => item.id !== movie.id);
     button.textContent = 'Add to My Library';
   } else {
-    saved.push(film);
-    localStorage.setItem('my-library', JSON.stringify(saved));
+    library.push(movie);
     button.textContent = 'Remove from My Library';
   }
+
+  localStorage.setItem(libraryKey, JSON.stringify(library));
+}
+
+function checkLibraryState(movieId, button) {
+  const library = JSON.parse(localStorage.getItem('myLibrary')) || [];
+  const exists = library.find(item => item.id === movieId);
+  button.textContent = exists ? 'Remove from My Library' : 'Add to My Library';
 }
 
 async function loadUpcomingMovie() {
@@ -153,6 +152,7 @@ async function loadUpcomingMovie() {
 
     const btn = upcomingCard.querySelector('.upcoming__btn');
     btn.addEventListener('click', () => toggleLibrary(movie, btn));
+    checkLibraryState(movie.id, btn); // <- Eklenen satır ✅
 
   } catch (err) {
     upcomingCard.innerHTML = `<p class="upcoming__info">Oops! Something went wrong while loading the movie.</p>`;
@@ -160,4 +160,7 @@ async function loadUpcomingMovie() {
   }
 }
 
-document.addEventListener('DOMContentLoaded', loadUpcomingMovie);
+document.addEventListener('DOMContentLoaded', () => {
+  loadWeeklyTrends();
+  loadUpcomingMovie();
+});
