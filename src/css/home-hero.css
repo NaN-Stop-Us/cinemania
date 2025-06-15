@@ -208,3 +208,11 @@ body.light-theme .weekly-card__info {
 body.light-theme .weekly-card__meta {
   color: #444444;
 }
+
+body.light-theme .weekly-card__info {
+  color: #FFFFFF;
+}
+
+body.light-theme .weekly-card__meta {
+  color: #DDDDDD;
+}

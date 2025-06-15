@@ -201,3 +201,6 @@ function showDetailsPopup(movie) {
   modal.querySelector('.close-span-btn-details').addEventListener('click', closeModal);
   modal.querySelector('.detail-overlay').addEventListener('click', closeModal);
 }
+
+// modal penceresi için
+export { showDetailsPopup };
