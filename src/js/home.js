@@ -166,3 +166,32 @@ document.addEventListener('DOMContentLoaded', () => {
   loadWeeklyTrends();
   loadUpcomingMovie();
 });
+
+// weekly trends remove buton
+// WEEKLY TRENDS içinde modal butonu toggle eden fonksiyon
+document.addEventListener('click', e => {
+  const btn = e.target.closest('.add-library');
+  if (!btn) return;
+
+  const modal = document.getElementById('movie-detail-modal');
+  const movieTitle = modal.querySelector('h2')?.textContent?.trim();
+  if (!movieTitle) return;
+
+  // Weekly trends'teki modal için film ID'yi tahmin etmek zor ama title üzerinden basit kontrol yapıyoruz
+  const stored = JSON.parse(localStorage.getItem('myLibrary')) || [];
+  const exists = stored.find(f => f.title === movieTitle);
+
+  if (exists) {
+    const updated = stored.filter(f => f.title !== movieTitle);
+    localStorage.setItem('myLibrary', JSON.stringify(updated));
+    btn.textContent = 'Add to My Library';
+  } else {
+    const newMovie = {
+      title: movieTitle,
+      // daha gelişmiş kullanım için ID, poster, vs. de eklenebilir
+    };
+    stored.push(newMovie);
+    localStorage.setItem('myLibrary', JSON.stringify(stored));
+    btn.textContent = 'Remove from My Library';
+  }
+});

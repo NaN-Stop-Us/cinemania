@@ -322,3 +322,52 @@ body.light-theme .upcoming__btn:hover {
   background: #F87719;
   color: #FFFFFF;
 }
+
+/* light tema modal ekran */
+
+body.light-theme .movie-detail-modal.active {
+  background-color: rgba(0, 0, 0, 0.6);
+  backdrop-filter: none;
+}
+
+body.light-theme .detail-box {
+  background-color: #FFFFFF;
+  color: #111111;
+  border-radius: 20px;
+  box-shadow: 0px 4px 20px rgba(0, 0, 0, 0.2);
+}
+
+body.light-theme .detail-info h2 {
+  font-size: 24px;
+  font-weight: 700;
+  color: #111111;
+  margin-bottom: 16px;
+}
+
+body.light-theme .detail-info p {
+  font-size: 14px;
+  line-height: 1.5;
+  color: #333333;
+  margin-bottom: 8px;
+}
+
+body.light-theme .detail-info strong {
+  font-weight: 600;
+  color: #111111;
+}
+
+body.light-theme .add-library {
+  border: 1px solid #F87719;
+  background-color: #ffffff;
+  color: #111111;
+  padding: 10px 20px;
+  border-radius: 74px;
+  font-size: 14px;
+  margin-top: 16px;
+  transition: background-color 0.3s ease, color 0.3s ease;
+}
+
+body.light-theme .add-library:hover {
+  background-color: #F87719;
+  color: #ffffff;
+}
