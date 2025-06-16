@@ -121,6 +121,7 @@
 .weekly-trends__list {
   display: flex;
   gap: 16px;
+  padding-inline-start: 0;
 }
 
 .weekly-card {
