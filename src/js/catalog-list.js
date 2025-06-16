@@ -83,7 +83,7 @@ searchInput.addEventListener('keydown', event => {
 
 // sayfa fonksiyonu
 
-function renderPagination(current, total) {
+/* function renderPagination(current, total) {
   const pagination = document.getElementById('pagination');
   pagination.innerHTML = '';
 
@@ -141,6 +141,72 @@ async function loadUpcomingPage(page) {
     noResult.innerHTML =
       '<p>OOPS... We are very sorry! We don`t have any results matching your search. </p>';
     console.error('Upcoming fetch hatası:', error);
+  }
+} */
+
+function renderPagination(current, total) {
+  const pagination = document.getElementById('pagination');
+  pagination.innerHTML = '';
+
+  const createBtn = (text, page, isActive = false, isNavBtn = false) => {
+    const btn = document.createElement('button');
+    btn.textContent = text;
+    
+    // Navigasyon butonları (ileri/geri) için farklı class
+    if (isNavBtn) {
+      btn.className = 'nav-btn';
+    } else {
+      btn.className = 'page-btn';
+      if (isActive) btn.classList.add('active');
+    }
+    
+    btn.addEventListener('click', async () => {
+      console.log('Clicked page:', page, 'Current page:', currentPage);
+      if (page !== currentPage) {
+        currentPage = page;
+        try {
+          const data = await fetchMovies(BASE_URL, ENDPOINTS.UPCOMING_MOVIES, {
+            page,
+          });
+          renderMovies(data.results);
+          renderPagination(page, data.total_pages);
+        } catch (error) {
+          noResult.innerHTML =
+            '<p>OOPS... We are very sorry! We don`t have any results matching your search. </p>';
+          console.error('Upcoming fetch hatası:', error);
+        }
+      }
+    });
+    return btn;
+  };
+
+  // ⏮ İlk sayfaya dön (yalnızca current > 1 ise göster)
+  if (current > 1) {
+    pagination.appendChild(createBtn('⏮', 1, false, true));
+    pagination.appendChild(createBtn('‹', current - 1, false, true));
+  }
+  
+  const maxVisible = 3;
+  const start = Math.max(1, current - 1);
+  const end = Math.min(total, start + maxVisible - 1);
+
+  for (let i = start; i <= end; i++) {
+    pagination.appendChild(
+      createBtn(String(i).padStart(2, '0'), i, i === current, false)
+    );
+  }
+
+  if (end < total) {
+    const dots = document.createElement('span');
+    dots.textContent = '...';
+    dots.style.color = '#aaa';
+    pagination.appendChild(dots);
+    pagination.appendChild(createBtn(String(total).padStart(2, '0'), total, false, false));
+  }
+
+  if (current < total) {
+    pagination.appendChild(createBtn('›', current + 1, false, true));
+    pagination.appendChild(createBtn('⏭', total, false, true));
   }
 }
 

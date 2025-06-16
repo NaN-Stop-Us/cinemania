@@ -58,7 +58,7 @@
   flex-wrap: wrap;
 }
 
-.page-btn {
+/* .page-btn {
   width: 40px;
   height: 40px;
   border-radius: 50%;
@@ -75,6 +75,59 @@
   color: white;
   border: none;
 }
+ */
+
+ /* Sayfa numaraları için daire şekli */
+.page-btn {
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  border: 1px solid #666;
+  background: transparent;
+  color: white;
+  cursor: pointer;
+  margin: 0 3px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 14px;
+}
+
+.page-btn.active {
+  background: #ff6b35;
+  border-color: #ff6b35;
+}
+
+/* Navigasyon butonları için normal buton */
+.nav-btn {
+  padding: 8px 12px;
+  border: 1px solid #666;
+  border-radius: 4px;
+  background: transparent;
+  color: white;
+  cursor: pointer;
+  margin: 0 5px;
+  font-size: 16px;
+  border: none;
+}
+
+.nav-btn:hover, .page-btn:hover {
+  background: rgba(255, 255, 255, 0.1);
+}
+
+.nav-btn:hover {
+  border-radius: 4px; /* Navigasyon butonları daire olmasın */
+}
+
+
+body.light-theme .page-btn {
+    background-color: white;
+    color: #111;
+    border: 1px solid;
+    font-weight: 400;
+}
+
+
 
 
 /* Movie Detail Sayfası */
