@@ -270,7 +270,7 @@
     background: #111;
     color: white;
     width: 800px;
-    background-color: var(--bg-color); /* light-theme */
+   
     max-width: 90%;
     border-radius: 20px;
     
@@ -397,15 +397,4 @@
     color: #F87719;
     transform: scale(1.2);
 }
-/*. light-theme*/
-body.light-theme .detail-box,
-body.light-theme .detail-info p span,
-body.light-theme .detail-info p strong,
-body.light-theme .detail-info h2,
-body.light-theme .close-span-btn-details span,
-body.light-theme .add-library {
-    color: black ;
-}
-body.light-theme .value-box{
-    background-color: #ccc;
-}
+
