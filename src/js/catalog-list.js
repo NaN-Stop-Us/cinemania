@@ -83,67 +83,6 @@ searchInput.addEventListener('keydown', event => {
 
 // sayfa fonksiyonu
 
-/* function renderPagination(current, total) {
-  const pagination = document.getElementById('pagination');
-  pagination.innerHTML = '';
-
-  const createBtn = (text, page, isActive = false) => {
-    const btn = document.createElement('button');
-    btn.textContent = text;
-    btn.className = 'page-btn';
-    if (isActive) btn.classList.add('active');
-    btn.addEventListener('click', () => {
-      if (page !== currentPage) {
-        currentPage = page;
-        loadUpcomingPage(page);
-      }
-    });
-    return btn;
-  };
-
-  // ⏮ İlk sayfaya dön (yalnızca current > 1 ise göster)
-  if (current > 1) {
-    pagination.appendChild(createBtn('⏮', 1));
-    pagination.appendChild(createBtn('‹', current - 1));
-  }
-  const maxVisible = 3;
-  const start = Math.max(1, current - 1);
-  const end = Math.min(total, start + maxVisible - 1);
-
-  for (let i = start; i <= end; i++) {
-    pagination.appendChild(
-      createBtn(String(i).padStart(2, '0'), i, i === current)
-    );
-  }
-
-  if (end < total) {
-    const dots = document.createElement('span');
-    dots.textContent = '...';
-    dots.style.color = '#aaa';
-    pagination.appendChild(dots);
-    pagination.appendChild(createBtn(String(total).padStart(2, '0'), total));
-  }
-
-  if (current < total) {
-    pagination.appendChild(createBtn('›', current + 1));
-    pagination.appendChild(createBtn('⏭', total));
-  }
-}
-
-async function loadUpcomingPage(page) {
-  try {
-    const data = await fetchMovies(BASE_URL, ENDPOINTS.UPCOMING_MOVIES, {
-      page,
-    });
-    renderMovies(data.results);
-    renderPagination(page, data.total_pages);
-  } catch (error) {
-    noResult.innerHTML =
-      '<p>OOPS... We are very sorry! We don`t have any results matching your search. </p>';
-    console.error('Upcoming fetch hatası:', error);
-  }
-} */
-
 function renderPagination(current, total) {
   const pagination = document.getElementById('pagination');
   pagination.innerHTML = '';
