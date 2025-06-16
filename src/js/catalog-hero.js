@@ -204,3 +204,5 @@ function showDetailsPopup(movie) {
 
 // modal penceresi için
 export { showDetailsPopup };
+export { renderStarRating };
+
