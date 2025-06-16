@@ -202,4 +202,7 @@ function showDetailsPopup(movie) {
   modal.querySelector('.detail-overlay').addEventListener('click', closeModal);
 }
 
+// modal penceresi için
+export { showDetailsPopup };
 export { renderStarRating };
+
