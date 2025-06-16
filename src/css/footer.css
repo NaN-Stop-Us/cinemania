@@ -6,12 +6,18 @@
   --background: #000000;
   --modal-bg: #111111;
   --card-bg: #1a1a1a;
-  --card-border: #111111;
+  --card-border: #333;
   --text-secondary: #d3d3d3;
   --modal-overlay: rgba(0, 0, 0, 0.7);
-  --name-color: #F87719;
+  --name-color: #d3d3d3;
   --modal-content-bg: #111111;
-  --modal-shadow: 0 0 15px 15px rgba(201, 133, 8, 0.3);
+  --modal-shadow: 0 5px 20px rgba(0, 0, 0, 0.3);
+  --modal-star-background-image: radial-gradient(circle at 10% 20%, rgba(212, 118, 9, 0.411) 1px, transparent 2px),
+                                 radial-gradient(circle at 40% 70%, rgba(212, 118, 9, 0.411) 1px, transparent 1px),
+                                 radial-gradient(circle at 80% 30%, rgba(212, 118, 9, 0.411) 1px, transparent 1px),
+                                 radial-gradient(circle at 25% 50%, rgba(212, 118, 9, 0.411) 1px, transparent 3px),
+                                 radial-gradient(circle at 60% 10%, rgba(212, 118, 9, 0.411) 1px, transparent 1px);
+  --modal-star-background-size: 200px 200px;
 }
 
 [data-theme="light"] {
@@ -25,7 +31,13 @@
   --modal-overlay: rgba(0, 0, 0, 0.6);
   --name-color: #F87719;
   --modal-content-bg: #ffffff;
-  --modal-shadow: 0 0 15px 15px rgba(201, 133, 8, 0.2);
+  --modal-shadow: 0 5px 20px rgba(0, 0, 0, 0.1);
+  --modal-star-background-image: radial-gradient(circle at 10% 20%, rgba(0, 0, 0, 0.05) 1px, transparent 1px),
+                                 radial-gradient(circle at 40% 70%, rgba(0, 0, 0, 0.03) 1px, transparent 1px),
+                                 radial-gradient(circle at 80% 30%, rgba(0, 0, 0, 0.06) 1px, transparent 1px),
+                                 radial-gradient(circle at 25% 50%, rgba(0, 0, 0, 0.04) 1px, transparent 1px),
+                                 radial-gradient(circle at 60% 10%, rgba(0, 0, 0, 0.035) 1px, transparent 1px);
+  --modal-star-background-size: 200px 200px;
 }
 
 html, body {
@@ -51,13 +63,12 @@ html, body {
 }
 
 .footer a {
-  color: var(--text-secondary);
-  text-decoration: underline;
   cursor: pointer;
+  font-size: 16px;
 }
 
 .footer a:hover {
-  color: var(--text-color);
+  text-decoration: 2px solid #f7802b underline;
 }
 
 .heart img {
@@ -70,20 +81,17 @@ html, body {
 }
 
 @keyframes heartBeat {
-  0% {
+  0%, 70%, 100% {
     transform: scale(1);
   }
-  14% {
-    transform: scale(1.2);
+  20% {
+    transform: scale(1.3);
   }
-  28% {
-    transform: scale(1);
+  40% {
+    transform: scale(1.15);
   }
-  42% {
-    transform: scale(1.2);
-  }
-  70% {
-    transform: scale(1);
+  60% {
+    transform: scale(1.25);
   }
 }
 
@@ -94,34 +102,35 @@ html, body {
   text-decoration: none ;
   font-weight: bold;
   padding: 0 5px;
-  animation: glow 2s ease-in-out infinite;
+  animation: glow 1.5s ease-in-out infinite;
 }
 
 .goit-link::after {
   content: '→';
+  color: #F87719;
   position: absolute;
   right: -20px;
   top: 50%;
   transform: translateY(-50%);
   opacity: 0;
-  transition: all 0.3s ease;
+  transition: all 0.7s ease;
 }
 
 .goit-link:hover::after {
   right: -25px;
-  opacity: 1;
+  opacity: 5;
 }
 
 @keyframes glow {
   0% {
-    text-shadow: 0 0 5px rgba(248, 119, 25, 0.5);
+    text-shadow: 0 0 5px rgba(248, 119, 25, 1);
   }
   50% {
-    text-shadow: 0 0 20px rgba(248, 119, 25, 0.8),
-                 0 0 30px rgba(248, 119, 25, 0.6);
+    text-shadow: 0 0 20px rgba(248, 119, 25, 1.3),
+                 0 0 30px rgba(248, 119, 25, 1.15);
   }
   100% {
-    text-shadow: 0 0 5px rgba(248, 119, 25, 0.5);
+    text-shadow: 0 0 5px rgba(248, 119, 25, 1.25);
   }
 }
 
@@ -155,47 +164,54 @@ html, body {
 
 .modal-content {
   background-color: var(--modal-content-bg);
+  background-image: var(--modal-star-background-image);
+  background-size: var(--modal-star-background-size);
+  background-repeat: repeat;
   margin: 1% auto;
-  padding: 10px;
+  padding: 25px;
   width: 60%;
   max-width: 700px;
-  border-radius: 8px;
+  border-radius: 12px;
   position: relative;
   color: var(--text-color);
   box-shadow: var(--modal-shadow);
-  transform: translateY(-5px);
+  transform: translateY(0);
   border: 1px solid var(--card-border);
 }
 
 .close-modal {
+  position: absolute;
+  top: 15px;
+  right: 20px;
   color: var(--text-secondary);
-  float: right;
   font-size: 28px;
   font-weight: bold;
   cursor: pointer;
-  transition: color 0.3s ease;
+  transition: color 0.2s ease, transform 0.2s ease;
+  padding: 8px;
 }
 
 .close-modal:hover {
   color: #F87719;
+  transform: scale(1.05);
 }
 
 .modal h2 {
   color: #F87719;
-  margin-bottom: 10px;
-  font-size: 20px;
+  margin-bottom: 25px;
+  font-size: 26px;
   text-align: center;
 }
 
 .modal-body {
-  margin-top: 10px;
+  margin-top: 25px;
 }
 
 .modal-body > p {
   text-align: center;
-  margin-bottom: 15px;
+  margin-bottom: 25px;
   color: var(--text-secondary);
-  animation: 1.5s ease-in-out infinite;
+  animation: none;
 }
 
 @keyframes modal-text {
@@ -214,76 +230,76 @@ html, body {
 .teamcard {
   display: flex;
   justify-content: center;
-  gap: 20px;
-  margin-bottom: 20px;
+  gap: 25px;
+  margin-bottom: 25px;
 }
 
 .teamcard .card {
-  width: 160px;
+  width: 180px;
 }
 
 .team-cards {
   display: grid;
   grid-template-columns: repeat(3, 1fr);
-  gap: 10px;
-  padding: 5px;
-  max-width: 600px;
+  gap: 15px;
+  padding: 10px;
+  max-width: 620px;
   margin: 0 auto;
   justify-items: center;
 }
 
 .card {
   background: var(--card-bg);
-  border-radius: 8px;
+  border-radius: 10px;
   overflow: hidden;
-  transition: transform 0.3s ease, box-shadow 0.3s ease;
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
   border: 1px solid var(--card-border);
-  width: 160px;
+  width: 180px;
   box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
 }
 
 .card:hover {
   transform: translateY(-5px);
-  box-shadow: 0 5px 15px rgba(248, 119, 25, 0.3);
+  box-shadow: 0 5px 15px rgba(248, 119, 25, 0.1);
   border-color: #F87719;
 }
 
 .card img {
   width: 100%;
-  height: 150px;
+  height: 160px;
   object-fit: cover;
-  border-bottom: 2px solid #F87719;
+  border-bottom: 2px solid #1f1c1a69;
 }
 
 .card-info {
-  padding: 6px;
+  padding: 12px;
   text-align: center;
 }
 
 .card-info h4 {
   color: var(--name-color);
-  margin: 8px 0;
-  font-size: 14px;
+  margin: 12px 0;
+  font-size: 16px;
   font-weight: 600;
 }
 
 .card-info p {
   color: var(--text-secondary);
-  font-size: 12px;
-  margin: 4px 0;
+  font-size: 13px;
+  margin: 6px 0;
 }
 
 .social-links {
   display: flex;
   justify-content: center;
   gap: 6px;
-  margin-top: 2px;
+  margin-top: 8px;
 }
 
 .social-links a {
   color: var(--text-secondary);
-  font-size: 12px;
-  transition: color 0.3s ease;
+  font-size: 13px;
+  transition: color 0.2s ease;
 }
 
 .social-links a:hover {
