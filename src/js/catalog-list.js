@@ -52,7 +52,8 @@ async function handleSearch() {
   const year = yearFilter.value;
 
   if (!query) return;
-
+  let currentQuery = '';
+  let currentYear = '';
   currentQuery = query;
   currentYear = year;
 
