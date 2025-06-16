@@ -1,0 +1,2 @@
+import"./theme-C2VYDlp-.js";(()=>{const o=document.querySelector("[data-modal-open]"),n=document.querySelector("[data-modal-close]"),e=document.querySelector("[data-modal]");o.addEventListener("click",t),n.addEventListener("click",t),e.addEventListener("click",d=>{d.target===e&&t()}),document.addEventListener("keydown",d=>{d.key==="Escape"&&!e.classList.contains("is-hidden")&&t()});function t(){e.classList.toggle("is-hidden")}})();
+//# sourceMappingURL=main-CsGRE9CF.js.map
