@@ -9,8 +9,8 @@
     />
     <title>Catalog</title>
     <script type="module" crossorigin src="/cinemania/assets/vendor-DGDcxXwr.js"></script>
-    <script type="module" crossorigin src="/cinemania/assets/main-BzrDk739.js"></script>
-    <link rel="stylesheet" crossorigin href="/cinemania/assets/main-B-Cv1zrm.css">
+    <script type="module" crossorigin src="/cinemania/assets/main-kwkW57o_.js"></script>
+    <link rel="stylesheet" crossorigin href="/cinemania/assets/main-BZyjNfLl.css">
   </head>
   <body>
     <header class="header">
@@ -34,6 +34,31 @@
     <main>
       <section class="catalog-hero" id="catalog-hero"></section>
 <div class="trailer-modal" id="trailer-modal"></div>
+<div class="movie-detail-modal" id="movie-detail-modal"></div>
+      <section class="catalog-filter">
+  <div class="filter-container">
+    <input type="text" id="searchInput" placeholder="Search..." />
+
+    <select id="yearFilter">
+      <option value="">Year</option>
+      <option value="2025">2025</option>
+      <option value="2024">2024</option>
+      <option value="2023">2023</option>
+      <option value="2022">2022</option>
+      <option value="2021">2021</option>
+    </select>
+
+    <button id="searchBtn">🔍</button>
+  </div>
+</section>
+
+<section id="movieResults" class="movie-grid">
+    
+  <!-- JS ile posterler burada gösterilecek -->
+</section>
+<div id="pagination" class="pagination"></div>
+<div id="noResult"></div>
+
 <div class="movie-detail-modal" id="movie-detail-modal"></div>
     </main>
 
