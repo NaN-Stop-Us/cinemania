@@ -3,12 +3,16 @@
   <head>
     <meta charset="UTF-8" />
     <link rel="icon" type="image/svg+xml" href="/cinemania/favicon.svg" />
-    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700&display=swap" rel="stylesheet">
+    <link
+      href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700&display=swap"
+      rel="stylesheet"
+    />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Cinemania</title>
-    <script type="module" crossorigin src="/cinemania/assets/theme-C2VYDlp-.js"></script>
-    <script type="module" crossorigin src="/cinemania/assets/main-CsGRE9CF.js"></script>
-    <link rel="stylesheet" crossorigin href="/cinemania/assets/theme-DD5jX9OU.css">
+    <script type="module" crossorigin src="/cinemania/assets/vendor-DGDcxXwr.js"></script>
+    <script type="module" crossorigin src="/cinemania/assets/catalog-hero-D9_IRCYG.js"></script>
+    <script type="module" crossorigin src="/cinemania/assets/main-DDauxSyW.js"></script>
+    <link rel="stylesheet" crossorigin href="/cinemania/assets/catalog-hero-NjTpGGaY.css">
   </head>
   <body>
     <header class="header">
@@ -28,22 +32,46 @@
   </div>
 </header>
 
-    
 
     <main>
       <section class="home-hero">
-    <div class="home-hero-overlay">
-        <h1>Let’s Make Your<br>Own Cinema</h1>
-        <p>
-            Is a guide to creating a personalized movie theater experience.<br>
-            You’ll need a projector, screen, and speakers. Decorate your space,<br>
-            choose your films, and stock up on snacks for the full experience.
-        </p>
-        <button class="cta-button"><a href="./catalog.html">Get Started</a></button>
+  <div class="home-hero-overlay">
+    <h1>Let’s Make Your<br />Own Cinema</h1>
+    <p>
+      Is a guide to creating a personalized movie theater experience.<br />
+      You’ll need a projector, screen, and speakers. Decorate your space,<br />
+      choose your films, and stock up on snacks for the full experience.
+    </p>
+    <button class="cta-button"><a href="./catalog.html">Get Started</a></button>
+  </div>
+</section>
+<!--weekly trends - home section-->
+<section class="weekly-trends">
+  <div class="weekly-trends__container">
+    <div class="weekly-trends__header">
+      <h2 class="weekly-trends__title">Weekly Trends</h2>
+      <a href="./catalog.html" class="weekly-trends__link">See all</a>
     </div>
-    </section>
+
+    <ul
+      class="weekly-trends__list"
+      id="weekly-trends-list"
+      data-modal-open
+    ></ul>
+  </div>
+</section>
+
+<!--upcoming this month-->
+<section class="upcoming">
+  <div class="upcoming__container">
+    <h2 class="upcoming__title">Upcoming this month</h2>
+    <div class="upcoming__card" id="upcoming-card"></div>
+  </div>
+</section>
 
     </main>
+    <!-- Modal penceresi için -->
+    <div class="movie-detail-modal" id="movie-detail-modal"></div>
 
     <footer>
       <footer class="footer">
@@ -240,6 +268,7 @@
 </footer>
     </footer>
     
+
 
   </body>
 </html>
