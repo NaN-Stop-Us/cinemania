@@ -179,7 +179,7 @@ function showDetailsPopup(movie) {
           <p><strong>Genre:</strong> <span>${genres}</span></p>
           <p><strong>ABOUT</strong></p>
           <div class="scrollable-description">${movie.overview}</div>
-          <button class="add-library">Add to My Library</button>
+          <button class="add-library" id="add-to-my-library-btn">Add to My Library</button>
         </div>
       </div>
     </div>
