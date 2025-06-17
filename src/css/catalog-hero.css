@@ -270,10 +270,9 @@
     background: #111;
     color: white;
     width: 800px;
-    
+    background-color: var(--bg-color);
     max-width: 90%;
     border-radius: 20px;
-    
     box-shadow: 0 0 20px #F87719;
 }
 
@@ -396,4 +395,17 @@
 .close-span-btn-details:hover span {
     color: #F87719;
     transform: scale(1.2);
+}
+
+/*  16.06.2025 - 22:26 */
+body.light-theme .detail-box,
+body.light-theme .detail-info p span,
+body.light-theme .detail-info p strong,
+body.light-theme .detail-info h2,
+body.light-theme .close-span-btn-details span,
+body.light-theme .add-library{
+  color: black;
+}
+body.light-theme .value-box{
+  background-color: #ccc;
 }
