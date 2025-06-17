@@ -132,6 +132,11 @@ body.light-theme #searchInput::placeholder{
   font-weight: 400;
   text-align: center;
   align-items: center;
+  font-size: 32px;
+  line-height: 36px;
+  font-weight: 400;
+  text-align: center;
+  align-items: center;
 }
 
 .pagination {
@@ -143,21 +148,28 @@ body.light-theme #searchInput::placeholder{
   flex-wrap: wrap;
 }
 
+/* Sayfa numaraları için daire şekli */
 .page-btn {
   width: 40px;
   height: 40px;
   border-radius: 50%;
+  border: 1px solid #666;
   background: transparent;
-  border: 1px solid #aaa;
-  color: #fff;
-  font-weight: bold;
+  color: white;
   cursor: pointer;
-  transition: all 0.3s;
+  margin: 0 3px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 14px;
 }
 
 .page-btn.active {
   background: linear-gradient(to bottom, #ffa800, #ff6b00);
   color: white;
+  cursor: pointer;
+  margin: 0 5px;
+  font-size: 16px;
   border: none;
 }
 
@@ -187,13 +199,21 @@ body.light-theme .page-btn.active {
   inset: 0;
   z-index: 9999;
   display: none;
+  position: fixed;
+  inset: 0;
+  z-index: 9999;
+  display: none;
 }
 
 .movie-detail-modal.active {
   display: block;
+  display: block;
 }
 
 .detail-overlay {
+  position: absolute;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.7);
   position: absolute;
   inset: 0;
   background: rgba(0, 0, 0, 0.7);
@@ -212,14 +232,34 @@ body.light-theme .page-btn.active {
   border-radius: 20px;
 
   box-shadow: 0 0 20px #f87719;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  background: #111;
+  color: white;
+  width: 800px;
+
+  max-width: 90%;
+  border-radius: 20px;
+
+  box-shadow: 0 0 20px #f87719;
 }
 
 .detail-content {
   display: flex;
   gap: 32px;
+  display: flex;
+  gap: 32px;
 }
 
 .detail-poster {
+  width: 375px;
+  border-radius: 8px;
+  flex-shrink: 0;
+  margin-left: 60px;
+  margin-bottom: 60px;
+  margin-top: 60px;
   width: 375px;
   border-radius: 8px;
   flex-shrink: 0;
@@ -233,9 +273,16 @@ body.light-theme .page-btn.active {
   display: flex;
   flex-direction: column;
   margin-right: 60px;
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  margin-right: 60px;
 }
 
 .detail-info h2 {
+  font-size: 28px;
+  margin-bottom: 16px;
+  margin-top: 60px;
   font-size: 28px;
   margin-bottom: 16px;
   margin-top: 60px;
@@ -243,6 +290,12 @@ body.light-theme .page-btn.active {
 
 /* P satırları etiket + veri için hizalı */
 .detail-info p {
+  font-size: 16px;
+  margin-bottom: 10px;
+  line-height: 1.6;
+  display: flex;
+  align-items: center;
+  margin-top: 10.5px;
   font-size: 16px;
   margin-bottom: 10px;
   line-height: 1.6;
@@ -257,12 +310,20 @@ body.light-theme .page-btn.active {
   color: #aaa;
   font-weight: 600;
   margin-right: 60px;
+  display: inline-block;
+  width: 120px;
+  color: #aaa;
+  font-weight: 600;
+  margin-right: 60px;
 }
 
 .detail-info p span {
   color: white;
+  color: white;
 }
 
+.detail-info p .value-box {
+  color: black;
 .detail-info p .value-box {
   color: black;
 }
@@ -277,9 +338,22 @@ body.light-theme .page-btn.active {
   font-weight: bold;
   font-size: 14px;
   margin: 0 4px;
+  display: inline-block;
+  background: white;
+  color: #111;
+  padding: 2px 8px;
+  border-radius: 6px;
+  font-weight: bold;
+  font-size: 14px;
+  margin: 0 4px;
 }
 
 .scrollable-description {
+  max-height: 160px;
+  overflow-y: auto;
+  padding-right: 8px;
+  line-height: 1.6;
+  margin-top: 8px;
   max-height: 160px;
   overflow-y: auto;
   padding-right: 8px;
@@ -298,14 +372,38 @@ body.light-theme .page-btn.active {
   cursor: pointer;
   transition: all 0.3s ease;
   margin-top: 24px;
+  margin-top: auto;
+  align-self: flex-start;
+  background: transparent;
+  border: 1px solid #f87719;
+  color: white;
+  padding: 10px 20px;
+  border-radius: 30px;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  margin-top: 24px;
 }
 
 .add-library:hover {
   background: #f87719;
   color: #111;
+  background: #f87719;
+  color: #111;
 }
 
 .close-span-btn-details {
+  position: absolute;
+  top: 8px;
+  right: 18px;
+  background: transparent;
+  border: none;
+  cursor: pointer;
+  padding: 4px;
+  z-index: 5;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: transform 0.2s ease;
   position: absolute;
   top: 8px;
   right: 18px;
@@ -326,9 +424,16 @@ body.light-theme .page-btn.active {
   transition: color 0.3s ease, transform 0.3s ease;
   font-weight: bold;
   line-height: 1;
+  font-size: 28px;
+  color: white;
+  transition: color 0.3s ease, transform 0.3s ease;
+  font-weight: bold;
+  line-height: 1;
 }
 
 .close-span-btn-details:hover span {
+  color: #f87719;
+  transform: scale(1.2);
   color: #f87719;
   transform: scale(1.2);
 }
