@@ -12,18 +12,45 @@ import { showDetailsPopup } from './catalog-hero.js';
 
 //WEEKLY TRENDS//
 const weeklyListEl = document.querySelector('#weekly-trends-list');
+let genreMap = {};
+(async () => {
+  genreMap = await fetchGenres();
+})();
 
 function getFirstThree(arr) {
   return arr.slice(0, 3);
 }
 
+function renderStarRating(rating) {
+  const full = Math.floor(rating / 2);
+  const half = rating % 2 >= 1 ? 1 : 0;
+  const empty = 5 - full - half;
+
+  let stars = '';
+
+  for (let i = 0; i < full; i++) {
+    stars += `<img src="../img/star-full.svg" alt="full star" class="star-icon" />`;
+  }
+
+  if (half) {
+    stars += `<img src="../img/star-half.svg" alt="half star" class="star-icon" />`;
+  }
+
+  for (let i = 0; i < empty; i++) {
+    stars += `<img src="../img/star-empty.svg" alt="empty star" class="star-icon" />`;
+  }
+
+  return stars;
+}
+
 function renderWeeklyCards(movies) {
   const markup = movies.map(movie => {
-    const { id, title, poster_path, release_date, vote_average } = movie;
+    const { id, title, poster_path, release_date, vote_average, genre_ids } = movie;
     const year = release_date ? release_date.slice(0, 4) : 'N/A';
     const poster = poster_path
       ? `${IMG_BASE_URL}/w500${poster_path}`
       : 'https://via.placeholder.com/395x574?text=No+Image';
+    const genres = genre_ids?.map(id => genreMap[id]).join(', ') || '';
 
     return `
       <li class="weekly-card" data-id="${id}">
@@ -33,7 +60,8 @@ function renderWeeklyCards(movies) {
         </div>
         <div class="weekly-card__info">
           <h3 class="weekly-card__title">${title}</h3>
-          <p class="weekly-card__meta">${year} | ⭐ ${vote_average.toFixed(1)}</p>
+          <p class="weekly-card__meta">${genres} | ${year}</p>
+          <div class="weekly-card__rating">${renderStarRating(vote_average)}</div>
         </div>
       </li>
     `;
@@ -168,7 +196,6 @@ document.addEventListener('DOMContentLoaded', () => {
 });
 
 // weekly trends remove buton
-// WEEKLY TRENDS içinde modal butonu toggle eden fonksiyon
 document.addEventListener('click', e => {
   const btn = e.target.closest('.add-library');
   if (!btn) return;
@@ -177,7 +204,6 @@ document.addEventListener('click', e => {
   const movieTitle = modal.querySelector('h2')?.textContent?.trim();
   if (!movieTitle) return;
 
-  // Weekly trends'teki modal için film ID'yi tahmin etmek zor ama title üzerinden basit kontrol yapıyoruz
   const stored = JSON.parse(localStorage.getItem('myLibrary')) || [];
   const exists = stored.find(f => f.title === movieTitle);
 
@@ -188,7 +214,6 @@ document.addEventListener('click', e => {
   } else {
     const newMovie = {
       title: movieTitle,
-      // daha gelişmiş kullanım için ID, poster, vs. de eklenebilir
     };
     stored.push(newMovie);
     localStorage.setItem('myLibrary', JSON.stringify(stored));

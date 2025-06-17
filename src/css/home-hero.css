@@ -371,3 +371,47 @@ body.light-theme .add-library:hover {
   background-color: #F87719;
   color: #ffffff;
 }
+
+/* WEEKLY CARD YILDIZLAR */
+.weekly-card__info {
+  position: absolute;
+  bottom: 0;
+  width: 100%;
+  padding: 20px;
+  color: var(--white);
+  font-family: var(--font-family);
+  z-index: 2;
+}
+
+.weekly-card__title {
+  font-weight: 700;
+  font-size: 20px;
+  text-transform: uppercase;
+  margin-bottom: 4px;
+}
+
+.weekly-card__bottom {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.weekly-card__meta {
+  font-weight: 400;
+  font-size: 14px;
+  color: var(--secondary-text);
+}
+
+.weekly-card__rating {
+  display: flex;
+  gap: 2px;
+}
+
+.star-icon {
+  width: 14px;
+  height: 14px;
+  display: inline-block;
+}
+
+
+
