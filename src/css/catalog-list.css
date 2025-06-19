@@ -53,6 +53,7 @@ body.light-theme .searchBtn:hover .searchSvg {
 }
 
 #searchInput{
+    font-size: 16px;
     border-radius: 8px;
     border: solid 1px white;
     width: 314px;
@@ -61,7 +62,6 @@ body.light-theme .searchBtn:hover .searchSvg {
     padding-left: 24px;
     margin-right: 20px;
     color: #B7B7B7;
-
 }
 
 #searchInput::placeholder{
@@ -80,14 +80,22 @@ body.light-theme #searchInput::placeholder{
 
 
 #yearFilter{
+    font-size: 16px;
     width: 95px;
     height: 48px;
     border: 1px solid #FFFFFF;
-    background-color: transparent;
+    background-color: black;
     border-radius: 8px;
     color:#B7B7B7 ;
     text-align: center;
 }
+
+#yearFilter option{
+  background-color:#1C1C1C ;
+  color: #F8F8F8;
+  border: 1px solid #FFFFFF;
+}
+
 
 
 .movie-grid {

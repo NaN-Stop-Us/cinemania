@@ -71,6 +71,18 @@ async function handleSearch() {
   }
 }
 
+const select = document.getElementById("yearFilter");
+select.addEventListener("change", function () {
+  for (let i = 0; i < select.options.length; i++) {
+    select.options[i].style.color = "white";
+  }
+
+  const selectedOption = select.options[select.selectedIndex];
+  selectedOption.style.color = "orange";
+});
+
+
+
 // Butona tıklanınca
 searchBtn.addEventListener('click', handleSearch);
 
