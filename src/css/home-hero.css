@@ -87,6 +87,7 @@
   width: 1280px;
   margin: 0 auto;
   padding: 0 32px;
+  grid: 10px;
 }
 
 .weekly-trends__header {
@@ -119,8 +120,12 @@
 }
 
 .weekly-trends__list {
-  display: flex;
+ display: flex;
   gap: 16px;
+  padding: 0 32px;
+  max-width: 1280px;
+  margin: 0 auto;  
+  
 }
 
 .weekly-card {
@@ -168,6 +173,7 @@
   color: var(--white);
   font-family: var(--font-family);
   z-index: 2;
+   gap: 1px 2px;
 }
 
 .weekly-card__title {
@@ -323,7 +329,7 @@ body.light-theme .upcoming__btn:hover {
   color: #FFFFFF;
 }
 
-/* light tema modal ekran */
+/* light theme modal ekran */
 
 body.light-theme .movie-detail-modal.active {
   background-color: rgba(0, 0, 0, 0.6);
@@ -404,14 +410,57 @@ body.light-theme .add-library:hover {
 
 .weekly-card__rating {
   display: flex;
+  margin-left: 250px;
   gap: 2px;
 }
 
 .star-icon {
-  width: 14px;
-  height: 14px;
-  display: inline-block;
+  font-size: 14px;
 }
 
+
+/* Modal içeriği yazıları light tema için */
+body.light-theme .detail-info {
+  color: #111111;
+}
+
+body.light-theme .detail-info p,
+body.light-theme .detail-info span {
+  color: #333333;
+}
+
+body.light-theme .detail-info h2 {
+  color: #000000;
+  font-weight: 700;
+}
+
+body.light-theme .detail-info strong {
+  color: #111111;
+}
+
+/* buton */
+.close-span-btn-details {
+  position: absolute;
+  top: 16px;
+  right: 16px;
+  width: 24px;
+  height: 24px;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.close-span-btn-details svg,
+.close-span-btn-details img {
+  width: 100%;
+  height: 100%;
+}
+
+/* Light tema için siyah görünüm */
+body.light-theme .close-span-btn-details svg,
+body.light-theme .close-span-btn-details img {
+  filter: brightness(0);
+}
 
 
