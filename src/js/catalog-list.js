@@ -266,6 +266,7 @@ function renderMovies(movies) {
   movieResults.innerHTML = '';
 
   if (!movies || movies.length === 0) {
+    pagination.innerHTML = ``;
     noResult.innerHTML =
       '<p>OOPS... <br> We are very sorry! <br>  We don`t have any results matching your search. </p>';
     return;
