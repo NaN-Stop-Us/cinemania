@@ -75,17 +75,15 @@ async function handleSearch() {
   }
 }
 
-const select = document.getElementById("yearFilter");
-select.addEventListener("change", function () {
+const select = document.getElementById('yearFilter');
+select.addEventListener('change', function () {
   for (let i = 0; i < select.options.length; i++) {
-    select.options[i].style.color = "white";
+    select.options[i].style.color = 'white';
   }
 
   const selectedOption = select.options[select.selectedIndex];
-  selectedOption.style.color = "orange";
+  selectedOption.style.color = 'orange';
 });
-
-
 
 // Butona tıklanınca
 searchBtn.addEventListener('click', handleSearch);
@@ -103,20 +101,29 @@ function renderPagination(current, total) {
   const pagination = document.getElementById('pagination');
   pagination.innerHTML = '';
 
-  const createBtn = (text, page, isActive = false, isNavBtn = false) => {
+  const createBtn = (
+    content,
+    page,
+    isActive = false,
+    isNavBtn = false,
+    isSvg = false
+  ) => {
     const btn = document.createElement('button');
-    btn.textContent = text;
-    
-    // Navigasyon butonları (ileri/geri) için farklı class
+
+    if (isSvg) {
+      btn.innerHTML = content; // SVG'yi içeriye HTML olarak ekliyoruz
+    } else {
+      btn.textContent = content;
+    }
+
     if (isNavBtn) {
       btn.className = 'nav-btn';
     } else {
       btn.className = 'page-btn';
       if (isActive) btn.classList.add('active');
     }
-    
+
     btn.addEventListener('click', async () => {
-      console.log('Clicked page:', page, 'Current page:', currentPage);
       if (page !== currentPage) {
         currentPage = page;
         try {
@@ -132,15 +139,24 @@ function renderPagination(current, total) {
         }
       }
     });
+
     return btn;
   };
 
   // ⏮ İlk sayfaya dön (yalnızca current > 1 ise göster)
   if (current > 1) {
-    pagination.appendChild(createBtn('⏮', 1, false, true));
-    pagination.appendChild(createBtn('‹', current - 1, false, true));
+    pagination.appendChild(
+      createBtn(
+        `<svg width="10" height="18" viewBox="0 0 10 18" fill="none" xmlns="http://www.w3.org/2000/svg">
+      <path d="M8.9375 1.125L1.0625 9L8.9375 16.875" stroke="#B7B7B7" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+    </svg>`,
+        current - 1,
+        false,
+        true,
+        true // ← SVG olduğunu belirtiyoruz
+      )
+    );
   }
-  
   const maxVisible = 3;
   const start = Math.max(1, current - 1);
   const end = Math.min(total, start + maxVisible - 1);
@@ -156,12 +172,23 @@ function renderPagination(current, total) {
     dots.textContent = '...';
     dots.style.color = '#aaa';
     pagination.appendChild(dots);
-    pagination.appendChild(createBtn(String(total).padStart(2, '0'), total, false, false));
+    pagination.appendChild(
+      createBtn(String(total).padStart(2, '0'), total, false, false)
+    );
   }
 
   if (current < total) {
-    pagination.appendChild(createBtn('›', current + 1, false, true));
-    pagination.appendChild(createBtn('⏭', total, false, true));
+    pagination.appendChild(
+      createBtn(
+        `<svg width="10" height="18" viewBox="0 0 10 18" fill="none" xmlns="http://www.w3.org/2000/svg">
+      <path d="M1.0625 1.125L8.9375 9L1.0625 16.875" stroke="#B7B7B7" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+    </svg>`,
+        current + 1,
+        false,
+        true,
+        true // ← SVG olduğunu belirtiyoruz
+      )
+    );
   }
 }
 
@@ -265,7 +292,10 @@ function getGenreText(ids = []) {
     .join(', ');
 }
 
-function populateYearOptions(startYear = new Date().getFullYear(), endYear = 1980) {
+function populateYearOptions(
+  startYear = new Date().getFullYear(),
+  endYear = 1980
+) {
   const yearFilter = document.getElementById('yearFilter');
 
   for (let year = startYear; year >= endYear; year--) {

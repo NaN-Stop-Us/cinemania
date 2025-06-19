@@ -8,6 +8,7 @@
 .filter-container {
   display: flex;
   align-items: center;
+  position: relative;
 }
 
 .searchBtn {
@@ -78,6 +79,23 @@ body.light-theme #searchInput::placeholder{
     color: #595959;
 }
 
+#searchInput {
+  padding-right: 30px;
+  position: relative; 
+}
+
+#clearBtn {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  right: 65px; 
+  background: none;
+  border: none;
+  cursor: pointer;
+  color: white;
+  display: none;
+  padding-right: 140px;
+}
 
 #yearFilter{
     font-size: 16px;
@@ -96,6 +114,20 @@ body.light-theme #searchInput::placeholder{
   border: 1px solid #FFFFFF;
 }
 
+body.light-theme #yearFilter{
+  background-color: #F8F8F8;
+  border: solid 1px #595959;
+  color: #282828;
+}
+
+body.light-theme #yearFilter option{
+  background-color: #F8F8F8;
+  color: #282828;
+}
+
+body.light-theme #yearFilter::placeholder{
+  color: #595959;
+}
 
 
 .movie-grid {
@@ -154,6 +186,20 @@ body.light-theme #searchInput::placeholder{
   gap: 0.5rem;
   margin: 2rem 0;
   flex-wrap: wrap;
+}
+
+.nav-btn {
+  background: transparent;
+  border: none;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 8px;
+}
+
+.nav-btn svg {
+  display: block;
 }
 
 /* Sayfa numaraları için daire şekli */
