@@ -80,5 +80,5 @@ import{a as h}from"./vendor-DGDcxXwr.js";(function(){const t=document.createElem
         </div>
       </div>
     </div>
-  `,t.classList.add("active");const s=c=>{c.key==="Escape"&&o()};document.addEventListener("keydown",s);function o(){t.classList.remove("active"),t.innerHTML="",document.removeEventListener("keydown",s)}t.querySelector(".close-span-btn-details").addEventListener("click",o),t.querySelector(".detail-overlay").addEventListener("click",o)}export{v as B,p as E,L as I,S as a,b as f,O as r,$ as s};
-//# sourceMappingURL=catalog-hero-CJalPfBW.js.map
+  `,t.classList.add("active");const s=c=>{c.key==="Escape"&&o()};document.addEventListener("keydown",s);function o(){t.classList.remove("active"),t.innerHTML="",document.removeEventListener("keydown",s)}t.querySelector(".close-span-btn-details").addEventListener("click",o),t.querySelector(".detail-overlay").addEventListener("click",o)}export{v as B,p as E,L as I,b as a,S as f,O as r,$ as s};
+//# sourceMappingURL=catalog-hero-Dmcl_nyy.js.map
