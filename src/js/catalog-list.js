@@ -16,6 +16,10 @@ const noResult = document.getElementById('noResult');
 let currentPage = 1;
 let totalPages = 1;
 
+document.addEventListener('DOMContentLoaded', () => {
+  populateYearOptions(); // burası yıl select'ini dolduruyor
+});
+
 // Sayfa ilk yüklendiğinde upcoming filmleri getir
 document.addEventListener('DOMContentLoaded', async () => {
   try {
@@ -259,4 +263,15 @@ function getGenreText(ids = []) {
     .filter(Boolean)
     .slice(0, 2)
     .join(', ');
+}
+
+function populateYearOptions(startYear = new Date().getFullYear(), endYear = 1980) {
+  const yearFilter = document.getElementById('yearFilter');
+
+  for (let year = startYear; year >= endYear; year--) {
+    const option = document.createElement('option');
+    option.value = year;
+    option.textContent = year;
+    yearFilter.appendChild(option);
+  }
 }
