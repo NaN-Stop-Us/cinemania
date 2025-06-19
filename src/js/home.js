@@ -8,7 +8,7 @@ import {
 } from './fetchApi.js';
 
 // Catalog import
-import { showDetailsPopup } from './catalog-hero.js';
+import { showDetailsPopup,renderStarRating } from './catalog-hero.js';
 
 //WEEKLY TRENDS//
 const weeklyListEl = document.querySelector('#weekly-trends-list');
@@ -21,28 +21,7 @@ function getFirstThree(arr) {
   return arr.slice(0, 3);
 }
 
-function renderStarRating(rating) {
-  const full = Math.floor(rating / 2);
-  const half = rating % 2 >= 1 ? 1 : 0;
-  const empty = 5 - full - half;
-
-  let stars = '';
-
-  for (let i = 0; i < full; i++) {
-    stars += `<img src="../img/star-full.svg" alt="full star" class="star-icon" />`;
-  }
-
-  if (half) {
-    stars += `<img src="../img/star-half.svg" alt="half star" class="star-icon" />`;
-  }
-
-  for (let i = 0; i < empty; i++) {
-    stars += `<img src="../img/star-empty.svg" alt="empty star" class="star-icon" />`;
-  }
-
-  return stars;
-}
-
+//Yıldız svg 
 function renderWeeklyCards(movies) {
   const markup = movies.map(movie => {
     const { id, title, poster_path, release_date, vote_average, genre_ids } = movie;
@@ -53,28 +32,31 @@ function renderWeeklyCards(movies) {
     const genres = genre_ids?.map(id => genreMap[id]).join(', ') || '';
 
     return `
-      <li class="weekly-card" data-id="${id}">
-  <div class="weekly-card__image-wrapper">
-    <img src="${poster}" alt="${title}" class="weekly-card__image" />
-    <div class="weekly-card__overlay"></div>
-  </div>
-  <div class="weekly-card__info">
-    <h3 class="weekly-card__title">${title}</h3>
-    <div class="weekly-card__meta-row">
-      <p class="weekly-card__meta">${genres} | ${year}</p>
-      <div class="weekly-card__rating">
-        ${renderStarRating(vote_average)}
-      </div>
-    </div>
-  </div>
-</li>
-
-
+      <li class="weekly-card" data-id="${id}" data-rating="${vote_average}">
+        <div class="weekly-card__image-wrapper">
+          <img src="${poster}" alt="${title}" class="weekly-card__image" />
+          <div class="weekly-card__overlay"></div>
+        </div>
+        <div class="weekly-card__info">
+          <h3 class="weekly-card__title">${title}</h3>
+          <div class="weekly-card__meta-row">
+            <p class="weekly-card__meta">${genres} | ${year}</p>
+            <div class="weekly-card__rating"></div>
+          </div>
+        </div>
+      </li>
     `;
   }).join('');
 
   weeklyListEl.innerHTML = markup;
+
+  document.querySelectorAll('.weekly-card').forEach(card => {
+    const rating = parseFloat(card.dataset.rating);
+    const ratingContainer = card.querySelector('.weekly-card__rating');
+    renderStarRating(rating, ratingContainer);
+  });
 }
+
 
 async function loadWeeklyTrends() {
   try {
