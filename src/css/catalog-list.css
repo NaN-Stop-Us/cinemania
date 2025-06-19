@@ -1,8 +1,145 @@
 .catalog-filter {
-    margin-top: 80px;
-    display: flex;
-    justify-content: center;
+  margin-top: 80px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }
+
+.filter-container {
+  display: flex;
+  align-items: center;
+  position: relative;
+}
+
+.searchBtn {
+  background: linear-gradient(to bottom, #ffa800, #ff6b00);
+  border-radius: 50%;
+  width: 48px;
+  height: 48px;
+  border: none;
+  cursor: pointer;
+  margin-left: 24px;
+}
+
+.searchSvg {
+  color: white;
+}
+
+.searchBtn:hover .searchSvg {
+  color: black;
+}
+
+body.light-theme .searchBtn {
+    border-radius: 50%;
+    border: 2px solid transparent;
+    padding: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    background-image: linear-gradient(white, white), 
+    linear-gradient(to bottom, #FFA800, #FF6B00);
+    background-origin: border-box;
+    background-clip: content-box, border-box;
+    margin-left: 24px;
+  }
+
+
+body.light-theme .searchSvg {
+  color:#F87719 ;
+}
+
+body.light-theme .searchBtn:hover .searchSvg {
+  color:#F87719;
+}
+
+#searchInput{
+    font-size: 16px;
+    border-radius: 8px;
+    border: solid 1px white;
+    width: 314px;
+    height: 48px;
+    background-color: black;
+    padding-left: 24px;
+    margin-right: 20px;
+    color: #B7B7B7;
+}
+
+#searchInput::placeholder{
+    color: #B7B7B7;
+}
+
+body.light-theme #searchInput{
+    background-color: white;
+    border: solid 1px #595959;
+    color: #595959;
+}
+
+body.light-theme #searchInput::placeholder{
+    color: #595959;
+}
+
+#searchInput {
+  padding-right: 30px;
+  position: relative; 
+}
+
+#clearBtn {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  right: 65px; 
+  background: none;
+  border: none;
+  cursor: pointer;
+  color: white;
+  display: none;
+  padding-right: 140px;
+}
+
+#clearBtn:hover{
+  color: #F87719;
+}
+
+body.light-theme #clearBtn{
+  color: #282828;
+}
+
+body.light-theme #clearBtn:hover{
+  color: #F87719;
+}
+#yearFilter{
+    font-size: 16px;
+    width: 95px;
+    height: 48px;
+    border: 1px solid #FFFFFF;
+    background-color: black;
+    border-radius: 8px;
+    color:#B7B7B7 ;
+    text-align: center;
+}
+
+#yearFilter option{
+  background-color:#1C1C1C ;
+  color: #F8F8F8;
+  border: 1px solid #FFFFFF;
+}
+
+body.light-theme #yearFilter{
+  background-color: #F8F8F8;
+  border: solid 1px #595959;
+  color: #282828;
+}
+
+body.light-theme #yearFilter option{
+  background-color: #F8F8F8;
+  color: #282828;
+}
+
+body.light-theme #yearFilter::placeholder{
+  color: #595959;
+}
+
 
 .movie-grid {
   display: grid;
@@ -12,7 +149,6 @@
   margin-bottom: 48px;
   max-width: 1280px;
   margin: 0 auto;
-  
 }
 
 .movie-card {
@@ -42,11 +178,16 @@
 }
 
 #noResult p {
-    font-size: 32px;
-    line-height: 36px;
-    font-weight: 400;
-    text-align: center;
-    align-items: center;
+  font-size: 32px;
+  line-height: 36px;
+  font-weight: 400;
+  text-align: center;
+  align-items: center;
+  font-size: 32px;
+  line-height: 36px;
+  font-weight: 400;
+  text-align: center;
+  align-items: center;
 }
 
 .pagination {
@@ -58,176 +199,312 @@
   flex-wrap: wrap;
 }
 
+.nav-btn {
+  background: transparent;
+  border: none;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 8px;
+}
+
+.svgNav{
+  color: white;
+}
+
+body.light-theme .svgNav{
+  color: #595959;
+}
+
+.nav-btn svg {
+  display: block;
+}
+
+/* Sayfa numaraları için daire şekli */
 .page-btn {
   width: 40px;
   height: 40px;
   border-radius: 50%;
+  border: 1px solid #666;
   background: transparent;
-  border: 1px solid #aaa;
-  color: #fff;
-  font-weight: bold;
+  color: white;
   cursor: pointer;
-  transition: all 0.3s;
+  margin: 0 3px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 14px;
 }
 
 .page-btn.active {
-  background: linear-gradient(to bottom, #FFA800, #FF6B00);
+  background: linear-gradient(to bottom, #ffa800, #ff6b00);
   color: white;
+  cursor: pointer;
+  margin: 0 5px;
+  font-size: 16px;
   border: none;
 }
 
+body.light-theme .page-btn.active {
+    background: linear-gradient(to bottom, #ffa800, #ff6b00);
+    color: black;
+    border: none;
+  }
+
+  body.light-theme .page-btn {
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    background: transparent;
+    border: 1px solid black;
+    color: black;
+    font-weight: 400;
+    cursor: pointer;
+    transition: all 0.3s;
+  }
+  
 
 /* Movie Detail Sayfası */
 
 .movie-detail-modal {
-    position: fixed;
-    inset: 0;
-    z-index: 9999;
-    display: none;
+  position: fixed;
+  inset: 0;
+  z-index: 9999;
+  display: none;
+  position: fixed;
+  inset: 0;
+  z-index: 9999;
+  display: none;
 }
 
 .movie-detail-modal.active {
-    display: block;
+  display: block;
+  display: block;
 }
 
 .detail-overlay {
-    position: absolute;
-    inset: 0;
-    background: rgba(0, 0, 0, 0.7);
+  position: absolute;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.7);
+  position: absolute;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.7);
 }
 
 .detail-box {
-    position: absolute;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
-    background: #111;
-    color: white;
-    width: 800px;
-    
-    max-width: 90%;
-    border-radius: 20px;
-    
-    box-shadow: 0 0 20px #F87719;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  background: #111;
+  color: white;
+  width: 800px;
+
+  max-width: 90%;
+  border-radius: 20px;
+
+  box-shadow: 0 0 20px #f87719;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  background: #111;
+  color: white;
+  width: 800px;
+
+  max-width: 90%;
+  border-radius: 20px;
+
+  box-shadow: 0 0 20px #f87719;
 }
 
 .detail-content {
-    display: flex;
-    gap: 32px;
+  display: flex;
+  gap: 32px;
+  display: flex;
+  gap: 32px;
 }
 
 .detail-poster {
-    width: 375px;
-    border-radius: 8px;
-    flex-shrink: 0;
-    margin-left: 60px;
-    margin-bottom: 60px;
-    margin-top: 60px;
-    
+  width: 375px;
+  border-radius: 8px;
+  flex-shrink: 0;
+  margin-left: 60px;
+  margin-bottom: 60px;
+  margin-top: 60px;
+  width: 375px;
+  border-radius: 8px;
+  flex-shrink: 0;
+  margin-left: 60px;
+  margin-bottom: 60px;
+  margin-top: 60px;
 }
 
 .detail-info {
-    flex: 1;
-    display: flex;
-    flex-direction: column;
-    margin-right: 60px;
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  margin-right: 60px;
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  margin-right: 60px;
 }
 
 .detail-info h2 {
-    font-size: 28px;
-    margin-bottom: 16px;
-    margin-top: 60px;
+  font-size: 28px;
+  margin-bottom: 16px;
+  margin-top: 60px;
+  font-size: 28px;
+  margin-bottom: 16px;
+  margin-top: 60px;
 }
 
 /* P satırları etiket + veri için hizalı */
 .detail-info p {
-    font-size: 16px;
-    margin-bottom: 10px;
-    line-height: 1.6;
-    display: flex;
-    align-items: center;
-    margin-top: 10.5px;
+  font-size: 16px;
+  margin-bottom: 10px;
+  line-height: 1.6;
+  display: flex;
+  align-items: center;
+  margin-top: 10.5px;
+  font-size: 16px;
+  margin-bottom: 10px;
+  line-height: 1.6;
+  display: flex;
+  align-items: center;
+  margin-top: 10.5px;
 }
 
 .detail-info p strong {
-    display: inline-block;
-    width: 120px;
-    color: #aaa;
-    font-weight: 600;
-    margin-right: 60px;
+  display: inline-block;
+  width: 120px;
+  color: #aaa;
+  font-weight: 600;
+  margin-right: 60px;
+  display: inline-block;
+  width: 120px;
+  color: #aaa;
+  font-weight: 600;
+  margin-right: 60px;
 }
 
 .detail-info p span {
-    color: white;
-    
+  color: white;
+  color: white;
 }
 
-.detail-info p .value-box{
-    color: black;
+.detail-info p .value-box {
+  color: black;
 }
 
 /* Vote box'ları için özel kutu */
 .value-box {
-    display: inline-block;
-    background: white;
-    color: #111;
-    padding: 2px 8px;
-    border-radius: 6px;
-    font-weight: bold;
-    font-size: 14px;
-    margin: 0 4px;
+  display: inline-block;
+  background: white;
+  color: #111;
+  padding: 2px 8px;
+  border-radius: 6px;
+  font-weight: bold;
+  font-size: 14px;
+  margin: 0 4px;
+  display: inline-block;
+  background: white;
+  color: #111;
+  padding: 2px 8px;
+  border-radius: 6px;
+  font-weight: bold;
+  font-size: 14px;
+  margin: 0 4px;
 }
 
 .scrollable-description {
-    max-height: 160px;
-    overflow-y: auto;
-    padding-right: 8px;
-    line-height: 1.6;
-    margin-top: 8px;
+  max-height: 160px;
+  overflow-y: auto;
+  padding-right: 8px;
+  line-height: 1.6;
+  margin-top: 8px;
+  max-height: 160px;
+  overflow-y: auto;
+  padding-right: 8px;
+  line-height: 1.6;
+  margin-top: 8px;
 }
 
 .add-library {
-    margin-top: auto;
-    align-self: flex-start;
-    background: transparent;
-    border: 1px solid #F87719;
-    color: white;
-    padding: 10px 20px;
-    border-radius: 30px;
-    cursor: pointer;
-    transition: all 0.3s ease;
-    margin-top: 24px;
+  margin-top: auto;
+  align-self: flex-start;
+  background: transparent;
+  border: 1px solid #f87719;
+  color: white;
+  padding: 10px 20px;
+  border-radius: 30px;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  margin-top: 24px;
+  margin-top: auto;
+  align-self: flex-start;
+  background: transparent;
+  border: 1px solid #f87719;
+  color: white;
+  padding: 10px 20px;
+  border-radius: 30px;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  margin-top: 24px;
 }
 
 .add-library:hover {
-    background: #F87719;
-    color: #111;
+  background: #f87719;
+  color: #111;
+  background: #f87719;
+  color: #111;
 }
 
 .close-span-btn-details {
-    position: absolute;
-    top: 8px;
-    right: 18px;
-    background: transparent;
-    border: none;
-    cursor: pointer;
-    padding: 4px;
-    z-index: 5;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    transition: transform 0.2s ease;
+  position: absolute;
+  top: 8px;
+  right: 18px;
+  background: transparent;
+  border: none;
+  cursor: pointer;
+  padding: 4px;
+  z-index: 5;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: transform 0.2s ease;
+  position: absolute;
+  top: 8px;
+  right: 18px;
+  background: transparent;
+  border: none;
+  cursor: pointer;
+  padding: 4px;
+  z-index: 5;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: transform 0.2s ease;
 }
 
 .close-span-btn-details span {
-    font-size: 28px;
-    color: white;
-    transition: color 0.3s ease, transform 0.3s ease;
-    font-weight: bold;
-    line-height: 1;
+  font-size: 28px;
+  color: white;
+  transition: color 0.3s ease, transform 0.3s ease;
+  font-weight: bold;
+  line-height: 1;
+  font-size: 28px;
+  color: white;
+  transition: color 0.3s ease, transform 0.3s ease;
+  font-weight: bold;
+  line-height: 1;
 }
 
 .close-span-btn-details:hover span {
-    color: #F87719;
-    transform: scale(1.2);
+  color: #f87719;
+  transform: scale(1.2);
+  color: #f87719;
+  transform: scale(1.2);
 }
