@@ -398,3 +398,9 @@
     transform: scale(1.2);
 }
 
+body.light-theme .close-span-btn-details span{
+  color: #000000;
+}
+body.light-theme .close-span-btn-details:hover span{
+  color: #F87719;
+}

@@ -54,16 +54,22 @@ function renderWeeklyCards(movies) {
 
     return `
       <li class="weekly-card" data-id="${id}">
-        <div class="weekly-card__image-wrapper">
-          <img src="${poster}" alt="${title}" class="weekly-card__image" />
-          <div class="weekly-card__overlay"></div>
-        </div>
-        <div class="weekly-card__info">
-          <h3 class="weekly-card__title">${title}</h3>
-          <p class="weekly-card__meta">${genres} | ${year}</p>
-          <div class="weekly-card__rating">${renderStarRating(vote_average)}</div>
-        </div>
-      </li>
+  <div class="weekly-card__image-wrapper">
+    <img src="${poster}" alt="${title}" class="weekly-card__image" />
+    <div class="weekly-card__overlay"></div>
+  </div>
+  <div class="weekly-card__info">
+    <h3 class="weekly-card__title">${title}</h3>
+    <div class="weekly-card__meta-row">
+      <p class="weekly-card__meta">${genres} | ${year}</p>
+      <div class="weekly-card__rating">
+        ${renderStarRating(vote_average)}
+      </div>
+    </div>
+  </div>
+</li>
+
+
     `;
   }).join('');
 
