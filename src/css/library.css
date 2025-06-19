@@ -1,0 +1,237 @@
+@import url('https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700&display=swap');
+
+/* ======================== MOBILE STYLES ======================== */
+
+.genre-container{
+    display: flex;
+    position: relative;
+    margin-top: 80px;
+}
+
+
+.genre-list {
+  width: 260px;
+  height: 48px;
+  padding: 12px 20px;
+  border-radius: 8px;
+  border: 1px solid #ffffff;
+  background-color: var(--bg-color);
+  color: var(--text-color);
+}
+
+
+.genre-list-item {
+  font-size: 16px;
+  width: 260px;
+  padding: 12px 20px;
+  border: 1px solid #ffffff;
+  background-color: var(--bg-color);
+  color: var(--text-color);
+}
+
+
+#library-film-list {
+  display: flex;
+  gap: 16px;
+  margin: 0;
+  padding: 0 28px;
+  list-style-type: none;
+  flex-wrap: wrap;
+}
+
+.search-movie {
+  font-family: 'Roboto', sans-serif;
+  display: block;
+  text-align: center;
+  margin: 0 auto;
+  font-size: 18px;
+  font-weight: 500;
+  line-height: 28px;
+  letter-spacing: 0;
+  padding: 12px 24px;
+  border-radius: 74px;
+  border: none;
+  cursor: pointer;
+  background-image: linear-gradient(to right, #ffc226, #f84119);
+}
+
+.search-movie:hover {
+  background: #ffffff;
+  color: #f87719;
+  box-shadow: inset 0 0 0 2px #f87719;
+  border-color: transparent;
+}
+
+.library-container {
+  font-family: 'Roboto', sans-serif;
+  display: block;
+  text-align: center;
+  margin: 0 auto;
+  font-size: 20px;
+  font-weight: 400;
+  line-height: 36px;
+  letter-spacing: 0;
+}
+
+#load-more-btn {
+  font-family: 'Roboto', sans-serif;
+  display: block;
+  text-align: center;
+  margin-left: auto;
+  margin-right: auto;
+  margin-top: 40px;
+  font-size: 18px;
+  font-weight: 500;
+  line-height: 28px;
+  letter-spacing: 0;
+  padding: 12px 24px;
+  border-radius: 74px;
+  border: none;
+  cursor: pointer;
+  background-image: linear-gradient(to right, #ffc226, #f84119);
+}
+
+#load-more-btn:hover {
+  background: #ffffff;
+  color: #f87719;
+  box-shadow: inset 0 0 0 2px #f87719;
+  border-color: transparent;
+}
+
+.film-card {
+  position: relative;
+  width: 395px;
+  height: 574px;
+  border-radius: 5px;
+  margin: 0;
+}
+
+.card-link {
+  width: 100%;
+  height: 100%;
+  outline: transparent;
+}
+
+.img-ovelay {
+  content: '';
+  width: 100%;
+  height: 100%;
+  display: block;
+  position: absolute;
+  z-index: 1;
+  background: linear-gradient(
+    180deg,
+    rgba(0, 0, 0, 0) 63.48%,
+    rgba(0, 0, 0, 0.9) 92.16%
+  );
+  border-radius: 5px;
+}
+
+.film-poster {
+  border-radius: 5px;
+  width: 100%;
+  height: 100%;
+}
+
+.film-card-info {
+  max-width: 100%;
+  position: absolute;
+  z-index: 2;
+  right: 12px;
+  left: 12px;
+  bottom: 12px;
+  font-size: 12px;
+  line-height: calc(20 / 12);
+  font-weight: var(--medium);
+}
+
+.film-name {
+  text-transform: uppercase;
+  color: var(--light-color);
+  margin: 0;
+}
+
+.film-wrap {
+  display: flex;
+  justify-content: space-between;
+  align-items: end;
+  margin: 0 auto;
+  margin: 0;
+}
+
+.film-feature {
+  color: var(--dark-theme-dark-text-color);
+}
+
+.film-rating {
+  height: 14px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  right: 12px;
+  bottom: 16px;
+  padding: 0;
+  margin: 0;
+  column-gap: 4px;
+}
+
+.rating-item {
+  width: 14px;
+  height: 100%;
+}
+
+.rating-icon {
+  width: 13.12px;
+  height: 12.25px;
+}
+
+/* ======================== TABLET STYLES ======================== */
+@media screen and (min-width: 768px) {
+  /* .container прописувати не потрібно */
+
+  .film-card {
+    width: 224px;
+    height: 325px;
+  }
+
+  .film-card-info {
+    line-height: calc(18 / 12);
+  }
+
+  .rating-item {
+    width: 10px;
+    height: 10px;
+  }
+
+  .rating-icon {
+    width: 9.37px;
+    height: 8.75px;
+  }
+}
+
+/* ======================== DESKTOP STYLES ======================== */
+@media screen and (min-width: 1280px) {
+  /* .container прописувати не потрібно */
+  .film-card {
+    width: 395px;
+    height: 574px;
+  }
+
+  .film-card-info {
+    right: 20px;
+    left: 20px;
+    bottom: 20px;
+    font-size: 20px;
+    line-height: calc(23 / 20);
+  }
+
+  .rating-item {
+    width: 18px;
+    height: 18px;
+  }
+
+  .rating-icon {
+    width: 16.87px;
+    height: 15.75px;
+  }
+}
