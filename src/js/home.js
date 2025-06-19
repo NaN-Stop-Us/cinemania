@@ -21,7 +21,7 @@ function getFirstThree(arr) {
   return arr.slice(0, 3);
 }
 
-
+//Yıldız svg 
 function renderWeeklyCards(movies) {
   const markup = movies.map(movie => {
     const { id, title, poster_path, release_date, vote_average, genre_ids } = movie;
