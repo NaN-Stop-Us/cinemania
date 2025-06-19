@@ -75,14 +75,34 @@ async function handleSearch() {
   }
 }
 
+const clearBtn = document.getElementById('clearBtn');
+
+searchInput.addEventListener('input', () => {
+  clearBtn.style.display = searchInput.value ? 'block' : 'none';
+});
+
+clearBtn.addEventListener('click', () => {
+  searchInput.value = '';
+  clearBtn.style.display = 'none';
+  searchInput.focus();
+});
+
 const select = document.getElementById('yearFilter');
 select.addEventListener('change', function () {
   for (let i = 0; i < select.options.length; i++) {
     select.options[i].style.color = 'white';
   }
 
+  for (let option of select.options) {
+    option.style.color = '';
+    option.style.fontWeight = '';
+    option.style.fontSize = '';
+  }
+
   const selectedOption = select.options[select.selectedIndex];
-  selectedOption.style.color = 'orange';
+  selectedOption.style.color = '#F87719';
+  selectedOption.style.fontWeight = '500';
+  selectedOption.style.fontSize = '24px';
 });
 
 // Butona tıklanınca
@@ -147,8 +167,8 @@ function renderPagination(current, total) {
   if (current > 1) {
     pagination.appendChild(
       createBtn(
-        `<svg width="10" height="18" viewBox="0 0 10 18" fill="none" xmlns="http://www.w3.org/2000/svg">
-      <path d="M8.9375 1.125L1.0625 9L8.9375 16.875" stroke="#B7B7B7" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+        `<svg class= "svgNav" width="10" height="18" viewBox="0 0 10 18" fill="none" xmlns="http://www.w3.org/2000/svg">
+      <path d="M8.9375 1.125L1.0625 9L8.9375 16.875" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
     </svg>`,
         current - 1,
         false,
@@ -180,8 +200,8 @@ function renderPagination(current, total) {
   if (current < total) {
     pagination.appendChild(
       createBtn(
-        `<svg width="10" height="18" viewBox="0 0 10 18" fill="none" xmlns="http://www.w3.org/2000/svg">
-      <path d="M1.0625 1.125L8.9375 9L1.0625 16.875" stroke="#B7B7B7" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+        `<svg class="svgNav" width="10" height="18" viewBox="0 0 10 18" fill="none" xmlns="http://www.w3.org/2000/svg">
+      <path d="M1.0625 1.125L8.9375 9L1.0625 16.875" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
     </svg>`,
         current + 1,
         false,
