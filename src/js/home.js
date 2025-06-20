@@ -109,8 +109,13 @@ async function loadUpcomingMovie() {
         <p><strong>Genre:</strong> ${genreNames}</p>
         <p><strong>ABOUT</strong></p>
         <p>${movie.overview}</p>
+        <button class="add-library">Add to My Library</button>
       </div>
     `;
+
+    const btn = upcomingCard.querySelector('.add-library');
+    btn.addEventListener('click', () => showDetailsPopup(movie));//gerekli fonksiyon 
+
   } catch (err) {
     upcomingCard.innerHTML = `<p class="upcoming__info">Oops! Something went wrong while loading the movie.</p>`;
     console.error(err);
