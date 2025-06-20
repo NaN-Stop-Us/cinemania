@@ -9,6 +9,13 @@ let genreMap = {};
 const catalogHero = document.querySelector('#catalog-hero');
 const modal = document.getElementById('trailer-modal');
 
+// Eğer catalog-hero elementi yoksa fonksiyonu çalıştırma
+if (!catalogHero) {
+  console.log('Catalog hero element not found, skipping initialization');
+} else {
+  initCatalogHero();
+}
+
 function getRandomMovie(movies) {
   const randomIndex = Math.floor(Math.random() * movies.length);
   return movies[randomIndex];
@@ -155,8 +162,6 @@ async function initCatalogHero() {
     console.error('Catalog hero error:', err);
   }
 }
-
-initCatalogHero();
 
 function showDetailsPopup(movie) {
   const modal = document.getElementById('movie-detail-modal');

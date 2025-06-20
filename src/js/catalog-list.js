@@ -18,6 +18,10 @@ const noResult = document.getElementById('noResult');
 let currentPage = 1;
 let totalPages = 1;
 
+document.addEventListener('DOMContentLoaded', () => {
+  populateYearOptions(); // burası yıl select'ini dolduruyor
+});
+
 // Sayfa ilk yüklendiğinde upcoming filmleri getir
 document.addEventListener('DOMContentLoaded', async () => {
   try {
@@ -73,6 +77,36 @@ async function handleSearch() {
   }
 }
 
+const clearBtn = document.getElementById('clearBtn');
+
+searchInput.addEventListener('input', () => {
+  clearBtn.style.display = searchInput.value ? 'block' : 'none';
+});
+
+clearBtn.addEventListener('click', () => {
+  searchInput.value = '';
+  clearBtn.style.display = 'none';
+  searchInput.focus();
+});
+
+const select = document.getElementById('yearFilter');
+select.addEventListener('change', function () {
+  for (let i = 0; i < select.options.length; i++) {
+    select.options[i].style.color = 'white';
+  }
+
+  for (let option of select.options) {
+    option.style.color = '';
+    option.style.fontWeight = '';
+    option.style.fontSize = '';
+  }
+
+  const selectedOption = select.options[select.selectedIndex];
+  selectedOption.style.color = '#F87719';
+  selectedOption.style.fontWeight = '500';
+  selectedOption.style.fontSize = '24px';
+});
+
 // Butona tıklanınca
 searchBtn.addEventListener('click', handleSearch);
 
@@ -89,24 +123,61 @@ function renderPagination(current, total) {
   const pagination = document.getElementById('pagination');
   pagination.innerHTML = '';
 
-  const createBtn = (text, page, isActive = false) => {
+  const createBtn = (
+    content,
+    page,
+    isActive = false,
+    isNavBtn = false,
+    isSvg = false
+  ) => {
     const btn = document.createElement('button');
-    btn.textContent = text;
-    btn.className = 'page-btn';
-    if (isActive) btn.classList.add('active');
-    btn.addEventListener('click', () => {
+
+    if (isSvg) {
+      btn.innerHTML = content; // SVG'yi içeriye HTML olarak ekliyoruz
+    } else {
+      btn.textContent = content;
+    }
+
+    if (isNavBtn) {
+      btn.className = 'nav-btn';
+    } else {
+      btn.className = 'page-btn';
+      if (isActive) btn.classList.add('active');
+    }
+
+    btn.addEventListener('click', async () => {
       if (page !== currentPage) {
         currentPage = page;
-        loadUpcomingPage(page);
+        try {
+          const data = await fetchMovies(BASE_URL, ENDPOINTS.UPCOMING_MOVIES, {
+            page,
+          });
+          renderMovies(data.results);
+          renderPagination(page, data.total_pages);
+        } catch (error) {
+          noResult.innerHTML =
+            '<p>OOPS... We are very sorry! We don`t have any results matching your search. </p>';
+          console.error('Upcoming fetch hatası:', error);
+        }
       }
     });
+
     return btn;
   };
 
   // ⏮ İlk sayfaya dön (yalnızca current > 1 ise göster)
   if (current > 1) {
-    pagination.appendChild(createBtn('⏮', 1));
-    pagination.appendChild(createBtn('‹', current - 1));
+    pagination.appendChild(
+      createBtn(
+        `<svg class= "svgNav" width="10" height="18" viewBox="0 0 10 18" fill="none" xmlns="http://www.w3.org/2000/svg">
+      <path d="M8.9375 1.125L1.0625 9L8.9375 16.875" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+    </svg>`,
+        current - 1,
+        false,
+        true,
+        true // ← SVG olduğunu belirtiyoruz
+      )
+    );
   }
   const maxVisible = 3;
   const start = Math.max(1, current - 1);
@@ -114,7 +185,7 @@ function renderPagination(current, total) {
 
   for (let i = start; i <= end; i++) {
     pagination.appendChild(
-      createBtn(String(i).padStart(2, '0'), i, i === current)
+      createBtn(String(i).padStart(2, '0'), i, i === current, false)
     );
   }
 
@@ -123,26 +194,23 @@ function renderPagination(current, total) {
     dots.textContent = '...';
     dots.style.color = '#aaa';
     pagination.appendChild(dots);
-    pagination.appendChild(createBtn(String(total).padStart(2, '0'), total));
+    pagination.appendChild(
+      createBtn(String(total).padStart(2, '0'), total, false, false)
+    );
   }
 
   if (current < total) {
-    pagination.appendChild(createBtn('›', current + 1));
-    pagination.appendChild(createBtn('⏭', total));
-  }
-}
-
-async function loadUpcomingPage(page) {
-  try {
-    const data = await fetchMovies(BASE_URL, ENDPOINTS.UPCOMING_MOVIES, {
-      page,
-    });
-    renderMovies(data.results);
-    renderPagination(page, data.total_pages);
-  } catch (error) {
-    noResult.innerHTML =
-      '<p>OOPS... We are very sorry! We don`t have any results matching your search. </p>';
-    console.error('Upcoming fetch hatası:', error);
+    pagination.appendChild(
+      createBtn(
+        `<svg class="svgNav" width="10" height="18" viewBox="0 0 10 18" fill="none" xmlns="http://www.w3.org/2000/svg">
+      <path d="M1.0625 1.125L8.9375 9L1.0625 16.875" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+    </svg>`,
+        current + 1,
+        false,
+        true,
+        true // ← SVG olduğunu belirtiyoruz
+      )
+    );
   }
 }
 
@@ -231,6 +299,7 @@ function renderMovies(movies) {
   movieResults.innerHTML = '';
 
   if (!movies || movies.length === 0) {
+    pagination.innerHTML = ``;
     noResult.innerHTML =
       '<p>OOPS... <br> We are very sorry! <br>  We don`t have any results matching your search. </p>';
     return;
@@ -278,5 +347,19 @@ function getGenreText(ids = []) {
 }
 
 
-export { showDetailsPopup };
+
+
+function populateYearOptions(
+  startYear = new Date().getFullYear(),
+  endYear = 1980
+) {
+  const yearFilter = document.getElementById('yearFilter');
+
+  for (let year = startYear; year >= endYear; year--) {
+    const option = document.createElement('option');
+    option.value = year;
+    option.textContent = year;
+    yearFilter.appendChild(option);
+  }
+}
 

@@ -8,39 +8,55 @@ import {
 } from './fetchApi.js';
 
 // Catalog import
-import { showDetailsPopup } from './catalog-hero.js';
+import { showDetailsPopup,renderStarRating } from './catalog-hero.js';
 
 //WEEKLY TRENDS//
 const weeklyListEl = document.querySelector('#weekly-trends-list');
+let genreMap = {};
+(async () => {
+  genreMap = await fetchGenres();
+})();
 
 function getFirstThree(arr) {
   return arr.slice(0, 3);
 }
 
+//Yıldız svg 
 function renderWeeklyCards(movies) {
   const markup = movies.map(movie => {
-    const { id, title, poster_path, release_date, vote_average } = movie;
+    const { id, title, poster_path, release_date, vote_average, genre_ids } = movie;
     const year = release_date ? release_date.slice(0, 4) : 'N/A';
     const poster = poster_path
       ? `${IMG_BASE_URL}/w500${poster_path}`
       : 'https://via.placeholder.com/395x574?text=No+Image';
+    const genres = genre_ids?.map(id => genreMap[id]).join(', ') || '';
 
     return `
-      <li class="weekly-card" data-id="${id}">
+      <li class="weekly-card" data-id="${id}" data-rating="${vote_average}">
         <div class="weekly-card__image-wrapper">
           <img src="${poster}" alt="${title}" class="weekly-card__image" />
           <div class="weekly-card__overlay"></div>
         </div>
         <div class="weekly-card__info">
           <h3 class="weekly-card__title">${title}</h3>
-          <p class="weekly-card__meta">${year} | ⭐ ${vote_average.toFixed(1)}</p>
+          <div class="weekly-card__meta-row">
+            <p class="weekly-card__meta">${genres} | ${year}</p>
+            <div class="weekly-card__rating"></div>
+          </div>
         </div>
       </li>
     `;
   }).join('');
 
   weeklyListEl.innerHTML = markup;
+
+  document.querySelectorAll('.weekly-card').forEach(card => {
+    const rating = parseFloat(card.dataset.rating);
+    const ratingContainer = card.querySelector('.weekly-card__rating');
+    renderStarRating(rating, ratingContainer);
+  });
 }
+
 
 async function loadWeeklyTrends() {
   try {
@@ -168,7 +184,6 @@ document.addEventListener('DOMContentLoaded', () => {
 });
 
 // weekly trends remove buton
-// WEEKLY TRENDS içinde modal butonu toggle eden fonksiyon
 document.addEventListener('click', e => {
   const btn = e.target.closest('.add-library');
   if (!btn) return;
@@ -177,7 +192,6 @@ document.addEventListener('click', e => {
   const movieTitle = modal.querySelector('h2')?.textContent?.trim();
   if (!movieTitle) return;
 
-  // Weekly trends'teki modal için film ID'yi tahmin etmek zor ama title üzerinden basit kontrol yapıyoruz
   const stored = JSON.parse(localStorage.getItem('myLibrary')) || [];
   const exists = stored.find(f => f.title === movieTitle);
 
@@ -188,7 +202,6 @@ document.addEventListener('click', e => {
   } else {
     const newMovie = {
       title: movieTitle,
-      // daha gelişmiş kullanım için ID, poster, vs. de eklenebilir
     };
     stored.push(newMovie);
     localStorage.setItem('myLibrary', JSON.stringify(stored));

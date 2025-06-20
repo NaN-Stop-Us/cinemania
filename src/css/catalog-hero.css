@@ -397,6 +397,14 @@
     transform: scale(1.2);
 }
 
+
+body.light-theme .close-span-btn-details span{
+  color: #000000;
+}
+body.light-theme .close-span-btn-details:hover span{
+  color: #F87719;
+}
+
 /*  16.06.2025 - 22:26 */
 body.light-theme .detail-box,
 body.light-theme .detail-info p span,
@@ -409,3 +417,4 @@ body.light-theme .add-library{
 body.light-theme .value-box{
   background-color: #ccc;
 }
+

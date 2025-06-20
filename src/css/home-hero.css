@@ -85,8 +85,7 @@
 
 .weekly-trends__container {
   width: 1280px;
-  margin: 0 auto;
-  padding: 0 32px;
+  grid: 10px;
 }
 
 .weekly-trends__header {
@@ -103,6 +102,7 @@
   line-height: 1.2;
   text-transform: uppercase;
   color: var(--white);
+  padding-left: 32px;
 }
 
 .weekly-trends__link {
@@ -112,6 +112,7 @@
   color: #F87719;
   text-decoration: none;
   transition: color 0.3s ease;
+  padding-right: 32px;
 }
 
 .weekly-trends__link:hover {
@@ -119,8 +120,13 @@
 }
 
 .weekly-trends__list {
-  display: flex;
+ display: flex;
   gap: 16px;
+
+  padding: 0 32px;
+  max-width: 1280px;
+  margin: 0 auto;  
+
   padding-inline-start: 0;
 }
 
@@ -161,28 +167,6 @@
   background: linear-gradient(180deg, rgba(0, 0, 0, 0) 60%, rgba(0, 0, 0, 0.95) 100%);
 }
 
-.weekly-card__info {
-  position: absolute;
-  bottom: 0;
-  width: 100%;
-  padding: 20px;
-  color: var(--white);
-  font-family: var(--font-family);
-  z-index: 2;
-}
-
-.weekly-card__title {
-  font-weight: 700;
-  font-size: 20px;
-  text-transform: uppercase;
-  margin-bottom: 8px;
-}
-
-.weekly-card__meta {
-  font-weight: 400;
-  font-size: 14px;
-  color: var(--secondary-text);
-}
 
 /* light theme weekly trends */
 
@@ -225,7 +209,7 @@ body.light-theme .weekly-card__meta {
 }
 
 .upcoming__container {
-  width: 1280px;
+  max-width: 1280px;
   margin: 0 auto;
   padding: 0 32px;
 }
@@ -324,7 +308,7 @@ body.light-theme .upcoming__btn:hover {
   color: #FFFFFF;
 }
 
-/* light tema modal ekran */
+/* light theme modal ekran */
 
 body.light-theme .movie-detail-modal.active {
   background-color: rgba(0, 0, 0, 0.6);
@@ -372,3 +356,77 @@ body.light-theme .add-library:hover {
   background-color: #F87719;
   color: #ffffff;
 }
+
+/* WEEKLY CARD YILDIZLAR */
+.weekly-card__info {
+  position: absolute;
+  bottom: 0;
+  width: 100%;
+  padding: 20px;
+  color: var(--white);
+  font-family: var(--font-family);
+  z-index: 2;
+  display: flex;
+  flex-direction: column;
+  padding: 12px;
+  gap: 6px;
+}
+
+.weekly-card__title {
+  font-weight: 700;
+  font-size: 20px;
+  text-transform: uppercase;
+  margin-bottom: 4px;
+}
+
+.weekly-card__bottom {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.weekly-card__meta-row {
+  display: flex;
+  align-items: center;
+  gap: 70px;
+}
+
+.weekly-card__meta {
+  font-weight: 400;
+  font-size: 14px;
+  color: var(--secondary-text);
+  width: 200px;
+}
+
+.weekly-card__rating {
+  display: flex;
+  gap: 2px;
+}
+
+.star-icon {
+  font-size: 14px;
+}
+
+
+/* Modal içeriği yazıları light tema için */
+body.light-theme .detail-info {
+  color: #111111;
+}
+
+body.light-theme .detail-info p,
+body.light-theme .detail-info span {
+  color: #333333;
+}
+
+body.light-theme .detail-info h2 {
+  color: #000000;
+  font-weight: 700;
+}
+
+body.light-theme .detail-info strong {
+  color: #111111;
+}
+
+
+
+
