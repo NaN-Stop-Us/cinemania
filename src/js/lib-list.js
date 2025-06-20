@@ -18,28 +18,38 @@ let allFilms = [];
 let currentIndex = 0;
 const PAGE_SIZE = 9;
 
-function renderLibraryFilms(reset = false) {
+
+function renderLibraryFilms(reset = false, customFilms = null) {
   if (reset) {
     allFilms = JSON.parse(localStorage.getItem(LIBRARY_KEY)) || [];
     currentIndex = 0;
     filmList.innerHTML = '';
   }
 
-  // Eğer hiç film yoksa boş mesajı göster
-  if (allFilms.length === 0) {
+  const filmsToShow = customFilms || allFilms;
+
+  // Genre select'i bul
+  const genreSelectContainer = document.querySelector('.genre-container');
+
+  if (filmsToShow.length === 0) {
     emptySection.classList.remove('hidden');
-    filmList.innerHTML = `<div class="library-container"><p>OOPS...<br />We are very sorry!<br />You don’t have any movies at your library.</p> 
+    filmList.innerHTML = `<div class="library-container"><p>OOPS...<br />We are very sorry!<br />You don’t have any movies at your library.</p>
     <button class="search-movie" onclick="window.location.href='catalog.html'">Search movie</button>
     </div>`;
     loadMoreBtn.style.display = 'none';
+    // Genre select'i gizle
+    if (genreSelectContainer) genreSelectContainer.style.display = 'none';
     return;
   }
 
   emptySection.classList.add('hidden');
+  // Genre select'i göster
+  if (genreSelectContainer) genreSelectContainer.style.display = '';
+
+  emptySection.classList.add('hidden');
 
   // Sonraki 9 filmi ekle
-
-  const nextFilms = allFilms.slice(currentIndex, currentIndex + PAGE_SIZE);
+  const nextFilms = filmsToShow.slice(currentIndex, currentIndex + PAGE_SIZE);
   nextFilms.forEach(film => {
     const {
       title,
@@ -54,30 +64,28 @@ function renderLibraryFilms(reset = false) {
       ? `https://image.tmdb.org/t/p/w500${poster_path}`
       : 'https://via.placeholder.com/395x574?text=No+Image';
 
-    const genreText =Array.isArray(genres) && genres.length
-        ? genres.join(', ')
-        : Array.isArray(genre_ids) && genre_ids.length
+    const genreText = Array.isArray(genres) && genres.length
+      ? genres.join(', ')
+      : Array.isArray(genre_ids) && genre_ids.length
         ? genre_ids.map(id => genreMap[id] || id).join(', ')
         : '';
-
 
     const li = document.createElement('li');
     li.className = 'weekly-card';
     li.innerHTML = `
-    <div class="weekly-card__image-wrapper">
-      <img class="weekly-card__image" src="${poster}" alt="${title}">
-      <div class="weekly-card__overlay"></div>
-    </div>
-    <div class="weekly-card__info">
-      <h3 class="weekly-card__title">${title}</h3>
+      <div class="weekly-card__image-wrapper">
+        <img class="weekly-card__image" src="${poster}" alt="${title}">
+        <div class="weekly-card__overlay"></div>
+      </div>
+      <div class="weekly-card__info">
+        <h3 class="weekly-card__title">${title}</h3>
         <div class="weekly-card__meta-row">
           <p class="weekly-card__meta">${genreText} | ${year}</p>
           <div class="weekly-card__rating"></div>
         </div>
-    </div>
-  `;
+      </div>
+    `;
 
-    // Yıldızlı puanlama ekle
     if (typeof renderStarRating === 'function') {
       const ratingContainer = li.querySelector('.weekly-card__rating');
       renderStarRating(vote_average, ratingContainer);
@@ -92,8 +100,7 @@ function renderLibraryFilms(reset = false) {
 
   currentIndex += PAGE_SIZE;
 
-  // Eğer daha fazla film varsa butonu göster, yoksa gizle
-  if (currentIndex < allFilms.length) {
+  if (currentIndex < filmsToShow.length) {
     loadMoreBtn.style.display = 'block';
   } else {
     loadMoreBtn.style.display = 'none';
@@ -109,3 +116,44 @@ document.addEventListener('DOMContentLoaded', () => {
 loadMoreBtn.addEventListener('click', () => {
   renderLibraryFilms();
 });
+
+
+
+const genreSelect = document.getElementById('genre-filter');
+
+genreSelect.addEventListener('change', () => {
+  const selectedGenre = genreSelect.value;
+  // Tüm filmleri localStorage'dan al
+  const allFilms = JSON.parse(localStorage.getItem(LIBRARY_KEY)) || [];
+
+  // "Genre" seçiliyse hepsini göster
+  if (selectedGenre === 'Genre') {
+    renderLibraryFilms(true);
+    return;
+  }
+
+  // Filtrele: genres veya genre_ids içinde seçili tür var mı?
+  const filteredFilms = allFilms.filter(film => {
+    // genres dizi ise (isim olarak)
+    if (Array.isArray(film.genres) && film.genres.includes(selectedGenre)) {
+      return true;
+    }
+    // genre_ids dizi ise (id olarak)
+    if (Array.isArray(film.genre_ids) && genreMap) {
+      return film.genre_ids.some(id => genreMap[id] === selectedGenre);
+    }
+    return false;
+
+
+    
+  });
+
+  currentIndex = 0;
+  filmList.innerHTML = '';
+  renderLibraryFilms(false, filteredFilms);
+});
+
+
+
+
+

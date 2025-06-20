@@ -1,15 +1,11 @@
 @import url('https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700&display=swap');
 
-/* ======================== MOBILE STYLES ======================== */
 
 .genre-container {
-  display: flex;
+  display: block;
   position: relative;
-  margin: 80px 0px 48px 32px;
-  gap: 10px;
+  padding: 80px 0 48px 32px;
 }
-
- 
 
 .genre-list {
   width: 260px;
@@ -18,15 +14,38 @@
   border-radius: 8px;
   font-size: 16px;
   border: 1px solid #ffffff;
-  background-color: var(--bg-color);
-  color: var(--text-color);
+  background-color: #181818;
+  color: #B7B7B7;
+  appearance: none;
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  outline: none;
+  cursor: pointer;
+  position: relative;
+  z-index: 2;
+  background-image: url("data:image/svg+xml;utf8,<svg fill='white' height='24' viewBox='0 0 24 24' width='24' xmlns='http://www.w3.org/2000/svg'><path d='M7 10l5 5 5-5z'/></svg>");
+  background-repeat: no-repeat;
+  background-position: right 16px center;
+  background-size: 24px;
+  padding-right: 40px;
 }
 
-.genre-list-item {
-  background-color: #1c1c1c;
+.genre-list option {
+  background: #181818;
   color: #f8f8f8;
+  padding: 16px 20px;
+  font-size: 18px;
+  border: none;
+  outline: none;
 }
 
+
+.genre-list option:checked,
+.genre-list option:hover,
+.genre-list option:focus {
+  background: #f87719;
+  color: #fff;
+}
 
 
 
