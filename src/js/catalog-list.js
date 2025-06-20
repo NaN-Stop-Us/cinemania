@@ -7,6 +7,8 @@ import {
 } from './fetchApi.js';
 import { renderStarRating } from './catalog-hero.js';
 
+import { addFilm, removeFilm, isInLibrary } from './library.js';
+
 const searchInput = document.getElementById('searchInput');
 const yearFilter = document.getElementById('yearFilter');
 const searchBtn = document.getElementById('searchBtn');
@@ -213,11 +215,13 @@ function renderPagination(current, total) {
 }
 
 // popup fonksiyonu
-function showDetailsPopup(movie) {
+function showDetailsPopup(movie, onLibraryChange) {
+  window.currentModalMovie = movie;
   const modal = document.getElementById('movie-detail-modal');
   const poster = `${IMG_BASE_URL}${ENDPOINTS.IMG_W500}${movie.poster_path}`;
   const genres = movie.genre_ids?.map(id => genreMap?.[id]).join(', ') || 'N/A';
 
+  const inLibrary = isInLibrary(movie.id);
   modal.innerHTML = `
     <div class="detail-overlay"></div>
     <div class="detail-box" role="dialog" aria-modal="true">
@@ -236,13 +240,34 @@ function showDetailsPopup(movie) {
           <p><strong>Genre:</strong> <span>${genres}</span></p>
           <p><strong>ABOUT</strong></p>
           <div class="scrollable-description">${movie.overview}</div>
-          <button class="add-library">Add to My Library</button>
+          <button class="add-library" data-id="${movie.id}">
+            ${
+              inLibrary ? 'Remove from My Library' : 'Add to My Library'
+            } </button>
         </div>
       </div>
     </div>
   `;
 
   modal.classList.add('active');
+
+  // LİBRARY BAŞLANGIÇ
+  const addBtn = modal.querySelector('.add-library');
+  addBtn.addEventListener('click', () => {
+    if (isInLibrary(movie.id)) {
+      removeFilm(movie.id);
+      addBtn.textContent = 'Add to My Library';
+    } else {
+      addFilm(movie);
+      addBtn.textContent = 'Remove from My Library';
+    }
+  });
+  // LİBRARY BİTİŞ
+
+  // CALLBACK ÇAĞRISI
+  if (typeof onLibraryChange === 'function') {
+    onLibraryChange();
+  }
 
   const escHandler = e => {
     if (e.key === 'Escape') closeModal();

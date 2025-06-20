@@ -1,5 +1,13 @@
 // fetchApi importu
-import { fetchMovies, BASE_URL, ENDPOINTS, IMG_BASE_URL, fetchGenres } from './fetchApi';
+import {
+  fetchMovies,
+  BASE_URL,
+  ENDPOINTS,
+  IMG_BASE_URL,
+  fetchGenres,
+} from './fetchApi';
+
+import { addFilm, removeFilm, isInLibrary } from './library.js';
 
 let genreMap = {};
 (async () => {
@@ -24,7 +32,9 @@ function getRandomMovie(movies) {
 async function getTrailerUrl(movieId) {
   try {
     const data = await fetchMovies(BASE_URL, ENDPOINTS.MOVIE_VIDEOS(movieId));
-    const trailer = data.results.find(v => v.type === 'Trailer' && v.site === 'YouTube');
+    const trailer = data.results.find(
+      v => v.type === 'Trailer' && v.site === 'YouTube'
+    );
     return trailer ? `https://www.youtube.com/embed/${trailer.key}` : null;
   } catch (err) {
     return null;
@@ -43,7 +53,9 @@ function showTrailer(youtubeUrl) {
   `;
   modal.classList.add('active');
   modal.querySelector('.overlay').addEventListener('click', closeTrailer);
-  modal.querySelector('.close-span-btn').addEventListener('click', closeTrailer);
+  modal
+    .querySelector('.close-span-btn')
+    .addEventListener('click', closeTrailer);
 }
 
 function closeTrailer() {
@@ -93,7 +105,7 @@ function renderStarRating(rating, containerElement) {
   const emptyStars = 5 - fullStars - hasHalfStar;
 
   containerElement.innerHTML = '';
-  const appendSVG = (svgString) => {
+  const appendSVG = svgString => {
     const temp = document.createElement('div');
     temp.innerHTML = svgString.trim();
     const svgElement = temp.firstElementChild;
@@ -131,12 +143,14 @@ async function initCatalogHero() {
       showDetailsPopup(movie);
     });
 
-    catalogHero.querySelector('.watch-trailer').addEventListener('click', async () => {
-      const youtubeUrl = await getTrailerUrl(movie.id);
-      if (youtubeUrl) {
-        showTrailer(youtubeUrl);
-      } else {
-        modal.innerHTML = `
+    catalogHero
+      .querySelector('.watch-trailer')
+      .addEventListener('click', async () => {
+        const youtubeUrl = await getTrailerUrl(movie.id);
+        if (youtubeUrl) {
+          showTrailer(youtubeUrl);
+        } else {
+          modal.innerHTML = `
           <div class="overlay"></div>
           <div class="iframe-container not-found">
             <button class="close-span-btn" aria-label="Close trailer">
@@ -153,21 +167,26 @@ async function initCatalogHero() {
             </div>
           </div>
         `;
-        modal.classList.add('active');
-        modal.querySelector('.close-span-btn').addEventListener('click', closeTrailer);
-        modal.querySelector('.overlay').addEventListener('click', closeTrailer);
-      }
-    });
+          modal.classList.add('active');
+          modal
+            .querySelector('.close-span-btn')
+            .addEventListener('click', closeTrailer);
+          modal
+            .querySelector('.overlay')
+            .addEventListener('click', closeTrailer);
+        }
+      });
   } catch (err) {
     console.error('Catalog hero error:', err);
   }
 }
 
-function showDetailsPopup(movie) {
+function showDetailsPopup(movie, onLibraryChange) {
   const modal = document.getElementById('movie-detail-modal');
   const poster = `${IMG_BASE_URL}${ENDPOINTS.IMG_W500}${movie.poster_path}`;
   const genres = movie.genre_ids?.map(id => genreMap?.[id]).join(', ') || 'N/A';
 
+  const inLibrary = isInLibrary(movie.id);
   modal.innerHTML = `
     <div class="detail-overlay"></div>
     <div class="detail-box" role="dialog" aria-modal="true">
@@ -180,11 +199,16 @@ function showDetailsPopup(movie) {
             <span class="value-box">${movie.vote_average.toFixed(1)}</span> /
             <span class="value-box">${movie.vote_count}</span>
           </p>
-          <p><strong>Popularity:</strong> <span>${movie.popularity.toFixed(1)}</span></p>
+          <p><strong>Popularity:</strong> <span>${movie.popularity.toFixed(
+            1
+          )}</span></p>
           <p><strong>Genre:</strong> <span>${genres}</span></p>
           <p><strong>ABOUT</strong></p>
           <div class="scrollable-description">${movie.overview}</div>
-          <button class="add-library">Add to My Library</button>
+           <button class="add-library" data-id="${movie.id}">
+            ${
+              inLibrary ? 'Remove from My Library' : 'Add to My Library'
+            } </button>
         </div>
       </div>
     </div>
@@ -192,22 +216,34 @@ function showDetailsPopup(movie) {
 
   modal.classList.add('active');
 
-  const escHandler = e => {
-    if (e.key === 'Escape') closeModal();
-  };
-  document.addEventListener('keydown', escHandler);
+  const addBtn = modal.querySelector('.add-library');
+  addBtn.addEventListener('click', () => {
+    if (isInLibrary(movie.id)) {
+      removeFilm(movie.id);
+      addBtn.textContent = 'Add to My Library';
+    } else {
+      addFilm(movie);
+      addBtn.textContent = 'Remove from My Library';
+    }
+    if (typeof onLibraryChange === 'function') {
+      onLibraryChange();
+    }
+  });
 
   function closeModal() {
     modal.classList.remove('active');
     modal.innerHTML = '';
     document.removeEventListener('keydown', escHandler);
   }
+  const escHandler = e => {
+    if (e.key === 'Escape') closeModal();
+  };
+  document.addEventListener('keydown', escHandler);
 
-  modal.querySelector('.close-span-btn-details').addEventListener('click', closeModal);
+    modal.querySelector('.close-span-btn-details').addEventListener('click', closeModal);
   modal.querySelector('.detail-overlay').addEventListener('click', closeModal);
 }
 
 // modal penceresi için
 export { showDetailsPopup };
 export { renderStarRating };
-
