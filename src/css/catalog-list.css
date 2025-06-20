@@ -223,8 +223,6 @@ body.light-theme .movie-info {
   color: #ccc;
 }
 
-.genre-year {
-}
 
 body.light-theme .movie-details {
   color: #666;
@@ -240,7 +238,7 @@ body.light-theme .movie-details {
 }
 
 body.light-theme .movie-title {
-  color: #282828;
+  color: white;
 }
 
 .genre-year {
