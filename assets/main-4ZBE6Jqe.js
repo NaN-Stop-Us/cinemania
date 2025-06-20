@@ -1,4 +1,4 @@
-import{f as F,a as E,B as b,E as $,s as C,I as x,i as I,r as D,b as G,c as L}from"./footer-xI0Wa6a-.js";const M=document.querySelector("#weekly-trends-list"),_=document.getElementById("upcoming-card");let S={};(async()=>S=await F())();function H(t){return t.slice(0,3)}function q(t){const a=t.map(n=>{const{id:r,title:e,poster_path:o,release_date:l,vote_average:c,genre_ids:s}=n,i=l?l.slice(0,4):"N/A",p=o?`${x}/w500${o}`:"https://via.placeholder.com/395x574?text=No+Image",g=(s==null?void 0:s.map(w=>S[w]).join(", "))||"";return`
+import{f as F,a as E,B as b,E as $,s as C,I as x,i as I,r as D,b as G,c as L}from"./footer-jHw531ic.js";const M=document.querySelector("#weekly-trends-list"),_=document.getElementById("upcoming-card");let S={};(async()=>S=await F())();function H(t){return t.slice(0,3)}function q(t){const a=t.map(n=>{const{id:r,title:e,poster_path:o,release_date:l,vote_average:c,genre_ids:s}=n,i=l?l.slice(0,4):"N/A",p=o?`${x}/w500${o}`:"https://via.placeholder.com/395x574?text=No+Image",g=(s==null?void 0:s.map(w=>S[w]).join(", "))||"";return`
       <li class="weekly-card" data-id="${r}" data-rating="${c}">
         <div class="weekly-card__image-wrapper">
           <img src="${p}" alt="${e}" class="weekly-card__image" />
@@ -40,4 +40,4 @@ import{f as F,a as E,B as b,E as $,s as C,I as x,i as I,r as D,b as G,c as L}fro
         </div>
       </div>
     `,typeof L=="function"){const u=m.querySelector(".weekly-card__rating");L(i,u)}m.addEventListener("click",()=>{C(o,()=>y(!0))}),v.appendChild(m)}),d+=A,d<n.length?h.style.display="block":h.style.display="none"}document.addEventListener("DOMContentLoaded",()=>{y(!0)});h.addEventListener("click",()=>{y()});const N=document.getElementById("genre-filter");N.addEventListener("change",()=>{const t=N.value,a=JSON.parse(localStorage.getItem(O))||[];if(t==="Genre"){y(!0);return}const n=a.filter(r=>Array.isArray(r.genres)&&r.genres.includes(t)?!0:Array.isArray(r.genre_ids)&&f?r.genre_ids.some(e=>f[e]===t):!1);d=0,v.innerHTML="",y(!1,n)});
-//# sourceMappingURL=main-Ci9Tt5JI.js.map
+//# sourceMappingURL=main-4ZBE6Jqe.js.map
