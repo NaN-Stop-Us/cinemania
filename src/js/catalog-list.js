@@ -302,18 +302,31 @@ function renderMovies(movies) {
     card.classList.add('movie-card');
 
     card.innerHTML = `
-      <img src="${
-        movie.poster_path
-          ? IMG_BASE_URL + '/w500' + movie.poster_path
-          : 'https://via.placeholder.com/500x750?text=No+Image'
-      }" alt="${movie.title}" />
-      <h3>${movie.title}</h3>
-      <div class="star-container"></div>
-      <div class="movie-meta">
-        <span class="genre-text">${getGenreText(movie.genre_ids)}</span>
-        <span class="year-text">${
-          movie.release_date ? movie.release_date.split('-')[0] : 'Unknown'
-        }</span>
+      <div class="movie-poster">
+        <img src="${
+          movie.poster_path
+            ? IMG_BASE_URL + '/w500' + movie.poster_path
+            : 'https://via.placeholder.com/500x750?text=No+Image'
+        }" alt="${movie.title}" />
+      </div>
+      
+      <div class="movie-info">
+        <div class="movie-header">
+          <h3 class="movie-title">${movie.title}</h3>
+          
+        </div>
+        
+        <div class="movie-details">
+          <div class="genre-year">
+            <span class="genre-text">${getGenreText(movie.genre_ids)}</span>
+              <span class="separator">|</span>
+              <span class="year-text">${
+                movie.release_date ? movie.release_date.split('-')[0] : 'Unknown'
+              }</span>
+          </div>
+            <div class="star-container"></div>
+        </div>
+        
       </div>
     `;
 
