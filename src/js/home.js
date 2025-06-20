@@ -8,11 +8,13 @@ import {
 } from './fetchApi.js';
 
 // Catalog import
-import { showDetailsPopup,renderStarRating } from './catalog-hero.js';
+import { showDetailsPopup, renderStarRating } from './catalog-hero.js';
 
-//WEEKLY TRENDS//
 const weeklyListEl = document.querySelector('#weekly-trends-list');
+const upcomingCard = document.getElementById('upcoming-card');
 let genreMap = {};
+
+// Tür verisini al
 (async () => {
   genreMap = await fetchGenres();
 })();
@@ -21,7 +23,6 @@ function getFirstThree(arr) {
   return arr.slice(0, 3);
 }
 
-//Yıldız svg 
 function renderWeeklyCards(movies) {
   const markup = movies.map(movie => {
     const { id, title, poster_path, release_date, vote_average, genre_ids } = movie;
@@ -57,7 +58,6 @@ function renderWeeklyCards(movies) {
   });
 }
 
-
 async function loadWeeklyTrends() {
   try {
     const data = await fetchMovies(BASE_URL, ENDPOINTS.TRENDING_WEEK);
@@ -69,29 +69,6 @@ async function loadWeeklyTrends() {
   }
 }
 
-// modal ekran
-weeklyListEl.addEventListener('click', async e => {
-  const card = e.target.closest('.weekly-card');
-  if (!card) return;
-
-  const movieId = Number(card.dataset.id);
-  if (!movieId) return;
-
-  try {
-    const data = await fetchMovies(BASE_URL, ENDPOINTS.TRENDING_WEEK);
-    const movie = data.results.find(film => film.id === movieId);
-    if (movie) {
-      showDetailsPopup(movie);
-    }
-  } catch (error) {
-    console.error('Modal error:', error);
-  }
-});
-
-// UPCOMING THIS MONTH
-
-const upcomingCard = document.getElementById('upcoming-card');
-
 function getCurrentMonthRange() {
   const now = new Date();
   const year = now.getFullYear();
@@ -101,41 +78,10 @@ function getCurrentMonthRange() {
   return { start, end };
 }
 
-// localStorage
-
-function isInLibrary(id) {
-  const saved = JSON.parse(localStorage.getItem('myLibrary')) || [];
-  return saved.some(film => film.id === id);
-}
-
-function toggleLibrary(movie, button) {
-  const libraryKey = 'myLibrary';
-  let library = JSON.parse(localStorage.getItem(libraryKey)) || [];
-  const exists = library.find(item => item.id === movie.id);
-
-  if (exists) {
-    library = library.filter(item => item.id !== movie.id);
-    button.textContent = 'Add to My Library';
-  } else {
-    library.push(movie);
-    button.textContent = 'Remove from My Library';
-  }
-
-  localStorage.setItem(libraryKey, JSON.stringify(library));
-}
-
-function checkLibraryState(movieId, button) {
-  const library = JSON.parse(localStorage.getItem('myLibrary')) || [];
-  const exists = library.find(item => item.id === movieId);
-  button.textContent = exists ? 'Remove from My Library' : 'Add to My Library';
-}
-
 async function loadUpcomingMovie() {
   try {
     const { start, end } = getCurrentMonthRange();
     const data = await fetchMovies(BASE_URL, ENDPOINTS.UPCOMING_MOVIES);
-    const genresMap = await fetchGenres();
-
     const filtered = data.results.filter(movie =>
       movie.release_date >= start && movie.release_date <= end
     );
@@ -151,8 +97,7 @@ async function loadUpcomingMovie() {
       ? `${IMG_BASE_URL}/original${movie.backdrop_path}`
       : 'https://via.placeholder.com/800x450';
 
-    const genreNames = movie.genre_ids.map(id => genresMap[id] || 'Unknown').join(', ');
-    const isSaved = isInLibrary(movie.id);
+    const genreNames = movie.genre_ids.map(id => genreMap[id] || 'Unknown').join(', ');
 
     upcomingCard.innerHTML = `
       <img class="upcoming__img" src="${image}" alt="${movie.title}" />
@@ -164,14 +109,8 @@ async function loadUpcomingMovie() {
         <p><strong>Genre:</strong> ${genreNames}</p>
         <p><strong>ABOUT</strong></p>
         <p>${movie.overview}</p>
-        <button class="upcoming__btn">${isSaved ? 'Remove from My Library' : 'Add to My Library'}</button>
       </div>
     `;
-
-    const btn = upcomingCard.querySelector('.upcoming__btn');
-    btn.addEventListener('click', () => toggleLibrary(movie, btn));
-    checkLibraryState(movie.id, btn);
-
   } catch (err) {
     upcomingCard.innerHTML = `<p class="upcoming__info">Oops! Something went wrong while loading the movie.</p>`;
     console.error(err);
@@ -183,29 +122,19 @@ document.addEventListener('DOMContentLoaded', () => {
   loadUpcomingMovie();
 });
 
-// weekly trends remove buton
-document.addEventListener('click', e => {
-  const btn = e.target.closest('.add-library');
-  if (!btn) return;
+weeklyListEl.addEventListener('click', async e => {
+  const card = e.target.closest('.weekly-card');
+  if (!card) return;
 
-  const modal = document.getElementById('movie-detail-modal');
-  const movieTitle = modal.querySelector('h2')?.textContent?.trim();
-  if (!movieTitle) return;
+  const movieId = Number(card.dataset.id);
+  if (!movieId) return;
 
-  const stored = JSON.parse(localStorage.getItem('myLibrary')) || [];
-  const exists = stored.find(f => f.title === movieTitle);
-
-  if (exists) {
-    const updated = stored.filter(f => f.title !== movieTitle);
-    localStorage.setItem('myLibrary', JSON.stringify(updated));
-    btn.textContent = 'Add to My Library';
-  } else {
-    const newMovie = {
-      title: movieTitle,
-    };
-    stored.push(newMovie);
-    localStorage.setItem('myLibrary', JSON.stringify(stored));
-    btn.textContent = 'Remove from My Library';
+  try {
+    const data = await fetchMovies(BASE_URL, ENDPOINTS.TRENDING_WEEK);
+    const movie = data.results.find(film => film.id === movieId);
+    if (movie) showDetailsPopup(movie);
+  } catch (error) {
+    console.error('Modal error:', error);
   }
 });
 
