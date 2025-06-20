@@ -1,4 +1,13 @@
-import { isInLibrary } from './library.js';
+import { showDetailsPopup, renderStarRating } from './catalog-hero.js';
+
+import { fetchGenres } from './fetchApi.js';
+
+let genreMap = {};
+fetchGenres().then(map => {
+  genreMap = map;
+  renderLibraryFilms(true); // genreMap dolduktan sonra render et
+});
+
 
 const LIBRARY_KEY = 'myLibrary';
 const filmList = document.getElementById('library-film-list');
@@ -29,27 +38,51 @@ function renderLibraryFilms(reset = false) {
   emptySection.classList.add('hidden');
 
   // Sonraki 9 filmi ekle
+
   const nextFilms = allFilms.slice(currentIndex, currentIndex + PAGE_SIZE);
   nextFilms.forEach(film => {
+    const {
+      title,
+      poster_path,
+      release_date,
+      vote_average,
+      genre_ids,
+      genres,
+    } = film;
+    const year = release_date ? release_date.slice(0, 4) : 'N/A';
+    const poster = poster_path
+      ? `https://image.tmdb.org/t/p/w500${poster_path}`
+      : 'https://via.placeholder.com/395x574?text=No+Image';
+
+    const genreText =Array.isArray(genres) && genres.length
+        ? genres.join(', ')
+        : Array.isArray(genre_ids) && genre_ids.length
+        ? genre_ids.map(id => genreMap[id] || id).join(', ')
+        : '';
+
+
     const li = document.createElement('li');
-    li.className = 'film-card';
+    li.className = 'weekly-card';
     li.innerHTML = `
-
-    <img class ="film-poster" src="https://image.tmdb.org/t/p/w200${
-      film.poster_path
-    }" alt="${film.title}">
-    <div class="film-card-info">
-    <p class="film-name">${film.title}</p>
-    <div class="film-wrap">
-      <p class="film-feature">${
-        film.release_date ? film.release_date.slice(0, 4) : ''
-      }</p>
+    <div class="weekly-card__image-wrapper">
+      <img class="weekly-card__image" src="${poster}" alt="${title}">
+      <div class="weekly-card__overlay"></div>
     </div>
-  </div>
+    <div class="weekly-card__info">
+      <h3 class="weekly-card__title">${title}</h3>
+        <div class="weekly-card__meta-row">
+          <p class="weekly-card__meta">${genreText} | ${year}</p>
+          <div class="weekly-card__rating"></div>
+        </div>
+    </div>
+  `;
 
-    `;
+    // Yıldızlı puanlama ekle
+    if (typeof renderStarRating === 'function') {
+      const ratingContainer = li.querySelector('.weekly-card__rating');
+      renderStarRating(vote_average, ratingContainer);
+    }
 
-    // MODAL AÇILIRKEN CALLBACK GÖNDER
     li.addEventListener('click', () => {
       showDetailsPopup(film, () => renderLibraryFilms(true));
     });

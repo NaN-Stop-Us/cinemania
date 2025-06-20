@@ -218,7 +218,6 @@ function renderPagination(current, total) {
 function showDetailsPopup(movie, onLibraryChange) {
   window.currentModalMovie = movie;
   const modal = document.getElementById('movie-detail-modal');
-  const modal2 = document.getElementById('movie-detail-modal-2');
   const poster = `${IMG_BASE_URL}${ENDPOINTS.IMG_W500}${movie.poster_path}`;
   const genres = movie.genre_ids?.map(id => genreMap?.[id]).join(', ') || 'N/A';
 
@@ -241,9 +240,7 @@ function showDetailsPopup(movie, onLibraryChange) {
           <p><strong>Genre:</strong> <span>${genres}</span></p>
           <p><strong>ABOUT</strong></p>
           <div class="scrollable-description">${movie.overview}</div>
-          <button class="add-library" id="add-to-my-library-btn" data-id="${
-            movie.id
-          }">
+          <button class="add-library" data-id="${movie.id}">
             ${
               inLibrary ? 'Remove from My Library' : 'Add to My Library'
             } </button>
@@ -252,13 +249,9 @@ function showDetailsPopup(movie, onLibraryChange) {
     </div>
   `;
 
-
-
-  
-
   modal.classList.add('active');
 
-   // LİBRARY BAŞLANGIÇ
+  // LİBRARY BAŞLANGIÇ
   const addBtn = modal.querySelector('.add-library');
   addBtn.addEventListener('click', () => {
     if (isInLibrary(movie.id)) {
@@ -271,11 +264,10 @@ function showDetailsPopup(movie, onLibraryChange) {
   });
   // LİBRARY BİTİŞ
 
-   // CALLBACK ÇAĞRISI
-    if (typeof onLibraryChange === 'function') {
-      onLibraryChange();
-    }
-  
+  // CALLBACK ÇAĞRISI
+  if (typeof onLibraryChange === 'function') {
+    onLibraryChange();
+  }
 
   const escHandler = e => {
     if (e.key === 'Escape') closeModal();
@@ -346,9 +338,6 @@ function getGenreText(ids = []) {
     .join(', ');
 }
 
-
-
-
 function populateYearOptions(
   startYear = new Date().getFullYear(),
   endYear = 1980
@@ -362,4 +351,3 @@ function populateYearOptions(
     yearFilter.appendChild(option);
   }
 }
-
