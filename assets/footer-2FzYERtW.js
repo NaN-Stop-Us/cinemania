@@ -1,2 +1,0 @@
-(()=>{const d=document.querySelector('[data-modal-open="footer"]'),n=document.querySelector('[data-modal-close="footer"]'),e=document.querySelector('[data-modal="footer"]');d.addEventListener("click",t),n.addEventListener("click",t),e.addEventListener("click",o=>{o.target===e&&t()}),document.addEventListener("keydown",o=>{o.key==="Escape"&&!e.classList.contains("is-hidden")&&t()});function t(){e.classList.toggle("is-hidden")}})();
-//# sourceMappingURL=footer-2FzYERtW.js.map
