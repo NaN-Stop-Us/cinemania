@@ -1,9 +1,7 @@
 :root {
-  --bg-color: #000;
   --text-color: #fff;
   --font-family: 'Roboto', sans-serif;
   --white: #FFFFFF;
-  --background: #000000;
   --modal-bg: #111111;
   --card-bg: #1a1a1a;
   --card-border: #333;
@@ -19,8 +17,7 @@
                                  radial-gradient(circle at 60% 10%, rgba(212, 118, 9, 0.411) 1px, transparent 1px);
   --modal-star-background-size: 200px 200px;
 }
-
-[data-theme="light"] {
+body.light-theme {
   --bg-color: #fff;
   --text-color: #000;
   --background: #FFFFFF;
@@ -32,14 +29,13 @@
   --name-color: #F87719;
   --modal-content-bg: #ffffff;
   --modal-shadow: 0 5px 20px rgba(0, 0, 0, 0.1);
-  --modal-star-background-image: radial-gradient(circle at 10% 20%, rgba(0, 0, 0, 0.05) 1px, transparent 1px),
-                                 radial-gradient(circle at 40% 70%, rgba(0, 0, 0, 0.03) 1px, transparent 1px),
-                                 radial-gradient(circle at 80% 30%, rgba(0, 0, 0, 0.06) 1px, transparent 1px),
-                                 radial-gradient(circle at 25% 50%, rgba(0, 0, 0, 0.04) 1px, transparent 1px),
-                                 radial-gradient(circle at 60% 10%, rgba(0, 0, 0, 0.035) 1px, transparent 1px);
+  --modal-star-background-image: radial-gradient(circle at 10% 20%, #f87719 1px, transparent 2px),
+                                 radial-gradient(circle at 40% 70%, #f87719 1px, transparent 1px),
+                                 radial-gradient(circle at 80% 30%, #f87719 1px, transparent 1px),
+                                 radial-gradient(circle at 25% 50%, #f87719 1px, transparent 1px),
+                                 radial-gradient(circle at 60% 10%, #f87719 1px, transparent 1px);
   --modal-star-background-size: 200px 200px;
 }
-
 html, body {
   width: 1280px;
   margin: 0 auto;
@@ -155,13 +151,6 @@ html, body {
   display: block;
 }
 
-.footerModal-text {
-  color: #F87719;
-  font-size: 16px;
-  text-align: center;
-  margin-bottom: 16px;
-}
-
 .modal-content {
   background-color: var(--modal-content-bg);
   background-image: var(--modal-star-background-image);
@@ -177,7 +166,9 @@ html, body {
   box-shadow: var(--modal-shadow);
   transform: translateY(0);
   border: 1px solid var(--card-border);
+
 }
+
 
 .close-modal {
   position: absolute;
@@ -201,29 +192,6 @@ html, body {
   margin-bottom: 25px;
   font-size: 26px;
   text-align: center;
-}
-
-.modal-body {
-  margin-top: 25px;
-}
-
-.modal-body > p {
-  text-align: center;
-  margin-bottom: 25px;
-  color: var(--text-secondary);
-  animation: none;
-}
-
-@keyframes modal-text {
-  0% {
-    text-shadow: 0 0 5px rgba(255, 255, 255, 0.63);
-  }
-  50% {
-    text-shadow: 0 0 10px rgb(255, 255, 255);
-  }
-  100% {
-    text-shadow: 0 0 5px rgba(255, 255, 255, 0.856);
-  }
 }
 
 /* Team Cards Styles */
@@ -331,36 +299,28 @@ html, body {
   background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='%23F87719'%3E%3Cpath d='M19 0h-14c-2.761 0-5 2.239-5 5v14c0 2.761 2.239 5 5 5h14c2.762 0 5-2.239 5-5v-14c0-2.761-2.238-5-5-5zm-11 19h-3v-11h3v11zm-1.5-12.268c-.966 0-1.75-.79-1.75-1.764s.784-1.764 1.75-1.764 1.75.79 1.75 1.764-.783 1.764-1.75 1.764zm13.5 12.268h-3v-5.604c0-3.368-4-3.113-4 0v5.604h-3v-11h3v1.765c1.396-2.586 7-2.777 7 2.476v6.759z'/%3E%3C/svg%3E");
 }
 
-/* Responsive Design */
-@media (max-width: 768px) {
-  .teamcard {
-    flex-direction: column;
-    align-items: center;
-  }
-
-  .teamcard .card {
-    width: 100%;
-    max-width: 300px;
-  }
-
-  .team-cards {
-    grid-template-columns: repeat(2, 1fr);
-    gap: 8px;
-  }
-
-  .modal-content {
-    width: 80%;
-    margin: 2% auto;
-  }
+body.light-theme .footerModal {
+  background-color: var(--modal-overlay);
 }
-
-@media (max-width: 480px) {
-  .team-cards {
-    grid-template-columns: 1fr;
-  }
-
-  .modal-content {
-    width: 90%;
-    margin: 3% auto;
-  }
+body.light-theme .footerModal .modal-content {
+  background-color: #f1f1f1;
+  color: var(--text-color);
+  box-shadow: var(--modal-shadow);
+  border: 1px solid var(--card-border);
+  background-image: var(--modal-star-background-image);
+  background-size: var(--modal-star-background-size);
+}
+body.light-theme .footerModal h2 {
+  color: #F87719;
+}
+body.light-theme .footerModal .card-info p,
+body.light-theme .footerModal .card-info h4 {
+  color: var(--text-secondary);
+}
+body.light-theme .footerModal .card {
+  background: var(--card-bg);
+  border: 1px solid var(--card-border);
+}
+body.light-theme .footerModal .card-info h4 {
+  color: var(--name-color);
 }
