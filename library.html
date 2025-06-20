@@ -1,17 +1,20 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700&display=swap" rel="stylesheet">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700&display=swap"
+      rel="stylesheet"
+    />
     <title>My Library</title>
-
-  <script type="module" crossorigin src="/cinemania/assets/vendor-DGDcxXwr.js"></script>
-  <script type="module" crossorigin src="/cinemania/assets/footer-CiCLqGMo.js"></script>
-  <script type="module" crossorigin src="/cinemania/assets/main-CUeyvN-V.js"></script>
-  <link rel="stylesheet" crossorigin href="/cinemania/assets/footer-CYAb7Io6.css">
-</head>
-<body>
+    <script type="module" crossorigin src="/cinemania/library.js"></script>
+    <link rel="modulepreload" crossorigin href="/cinemania/assets/vendor-DDD7fsZd.js">
+    <link rel="modulepreload" crossorigin href="/cinemania/assets/footer-DPzAl7vK.js">
+    <link rel="modulepreload" crossorigin href="/cinemania/assets/main-PJG_232H.js">
+    <link rel="stylesheet" crossorigin href="/cinemania/assets/footer-CfFESEAV.css">
+  </head>
+  <body>
     <header class="header">
   <div class="logo">
     <img src="/cinemania/assets/logo1-CwDNyqC4.svg" alt="Cinemania Logo" />
@@ -31,20 +34,40 @@
 
 
     <main>
-        <section class="lib-hero">
-    <div class="lib-hero-overlay">
-        <h1>Create Your<br>Dream Cinema</h1>
-        <p>
-            Is a guide to designing a personalized movie theater experience<br>
-            with the right equipment, customized decor, and favorite films.<br>
-            This guide helps you bring the cinema experience into your own<br>
-            home with cozy seating, dim lighting, and movie theater snacks.
-        </p>
-    </div>
-    </section>
+      <section class="lib-hero" id="library-hero">
+  <div class="lib-hero-overlay">
+    <h1>Create Your<br />Dream Cinema</h1>
+    <p>
+      Is a guide to designing a personalized movie theater experience<br />
+      with the right equipment, customized decor, and favorite films.<br />
+      This guide helps you bring the cinema experience into your own<br />
+      home with cozy seating, dim lighting, and movie theater snacks.
+    </p>
+  </div>
+</section>
+
+
+
+        <div class="genre-container">
+    <select class="genre-list" id="genre-filter">
+    <option value="Genre">Genre</option>
+    <option value="Romance">Romance</option>
+    <option value="Detective">Detective</option>
+    <option value="Thriller">Thriller</option>
+    <option value="Action">Action</option>
+    <option value="Documentary">Documentary</option>
+    <option value="Horror">Horror</option>
+  </select>
+  </div>
+      <!--film eklenmediyse gösterilecek mesaj-->
+<section id="empty-library" class="hidden"></section>
+
+<div class="movie-detail-modal" id="movie-detail-modal"></div>
+<ul id="library-film-list" class="library-film-list" data-modal-open></ul>
+<button id="load-more-btn">Load more</button>
+
     </main>
 
-    
     <footer>
       <footer class="footer">
   <p>
@@ -239,5 +262,5 @@
   </div>
 </footer>
     </footer>
-</body>
+  </body>
 </html>
