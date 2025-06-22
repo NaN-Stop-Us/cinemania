@@ -28,14 +28,14 @@
 
 ## 🖼️ Ekran Görüntüleri
 
-### 🏠 Ana Sayfa 
-![Ana Sayfa](./screenshots/home.png)
+### 🏠 Home 
+![Home](./screenshots/home.png)
 
 ### 📈 Catalog
-![Trendler](./screenshots/catalog.png)
+![Catalog](./screenshots/catalog.png)
 
 ### 🧾 Library
-![Detay Modal](./screenshots/library.png)
+![Library](./screenshots/library.png)
 
 ---
 
