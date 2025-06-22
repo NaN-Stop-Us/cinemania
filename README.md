@@ -60,28 +60,28 @@
 
 ## 👨‍💻 Geliştirici
 
-**Deniz Can Özder**  
-🔗 [LinkedIn](https://www.linkedin.com/in/denizozder1/) | 🌐 [GitHub](https://github.com/DenizzOzder)
-**Mesut Güzel**  
-🔗 [LinkedIn](https://linkedin.com) | 🌐 [GitHub](https://github.com/MesutGzlz)
-**Arda Tinmaz**  
-🔗 [LinkedIn](https://www.linkedin.com/in/ardatinmaz/) | 🌐 [GitHub](https://github.com/ArdaTinmaz)
-**Yusuf Şengöz**  
-🔗 [LinkedIn](https://www.linkedin.com/in/yusuf-şengöz-a7213525b/) | 🌐 [GitHub](https://github.com/zekirovskii)
-**Ahmet Canbaz**  
-🔗 [LinkedIn](https://www.linkedin.com/in/ahmet-canbaz/) | 🌐 [GitHub](https://github.com/canbazahmet)
-**Ayşegül Arslan**  
-🔗 [LinkedIn](https://www.linkedin.com/in/ayşegül-arslan-19a135279/) | 🌐 [GitHub](https://github.com/aysegularslan1)
-**Caner Kesici**  
-🔗 [LinkedIn](https://www.linkedin.com/in/caner-kesici/) | 🌐 [GitHub](https://github.com/Canerksc)
-**Derya Almaz**  
-🔗 [LinkedIn](https://www.linkedin.com/in/deryaalmaz/) | 🌐 [GitHub](https://github.com/deryalmaz)
-**Ebu Demirkazık**  
-🔗 [LinkedIn](https://www.linkedin.com/in/ebudemirkazik/) | 🌐 [GitHub](https://github.com/ebudemirkazik)
-**Rabia Altınok**  
-🔗 [LinkedIn](https://www.linkedin.com/in/rabia-altınok-853838255/) | 🌐 [GitHub](https://github.com/rabiaaltnk)
-**Bilal Fırtına**  
-🔗 [LinkedIn](https://www.linkedin.com/in/bilal-firtina/) | 🌐 [GitHub](https://github.com/BilalFirtina)
+**Deniz Can Özder** 🔗 [LinkedIn](https://www.linkedin.com/in/denizozder1/) | 🌐 [GitHub](https://github.com/DenizzOzder)
+
+**Mesut Güzel** 🔗 [LinkedIn](https://linkedin.com) | 🌐 [GitHub](https://github.com/MesutGzlz)
+
+**Arda Tinmaz** 🔗 [LinkedIn](https://www.linkedin.com/in/ardatinmaz/) | 🌐 [GitHub](https://github.com/ArdaTinmaz)
+
+**Yusuf Şengöz** 🔗 [LinkedIn](https://www.linkedin.com/in/yusuf-şengöz-a7213525b/) | 🌐 [GitHub](https://github.com/zekirovskii)
+
+**Ahmet Canbaz** 🔗 [LinkedIn](https://www.linkedin.com/in/ahmet-canbaz/) | 🌐 [GitHub](https://github.com/canbazahmet)  
+
+**Ayşegül Arslan** 🔗 [LinkedIn](https://www.linkedin.com/in/ayşegül-arslan-19a135279/) | 🌐 [GitHub](https://github.com/aysegularslan1)
+
+**Caner Kesici** 🔗 [LinkedIn](https://www.linkedin.com/in/caner-kesici/) | 🌐 [GitHub](https://github.com/Canerksc)
+
+**Derya Almaz** 🔗 [LinkedIn](https://www.linkedin.com/in/deryaalmaz/) | 🌐 [GitHub](https://github.com/deryalmaz)
+
+**Ebu Demirkazık** 🔗 [LinkedIn](https://www.linkedin.com/in/ebudemirkazik/) | 🌐 [GitHub](https://github.com/ebudemirkazik) 
+
+**Rabia Altınok** 🔗 [LinkedIn](https://www.linkedin.com/in/rabia-altınok-853838255/) | 🌐 [GitHub](https://github.com/rabiaaltnk) 
+
+**Bilal Fırtına** 🔗 [LinkedIn](https://www.linkedin.com/in/bilal-firtina/) | 🌐 [GitHub](https://github.com/BilalFirtina) 
+
 
 ---
 
