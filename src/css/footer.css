@@ -37,7 +37,6 @@ body.light-theme {
   --modal-star-background-size: 200px 200px;
 }
 html, body {
-  width: 1280px;
   margin: 0 auto;
   display: flex;
   flex-direction: column;

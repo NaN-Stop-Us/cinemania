@@ -84,8 +84,10 @@
 }
 
 .weekly-trends__container {
-  width: 1280px;
   grid: 10px;
+  width: 100vw;
+    max-width: 1280px;
+    margin: 0 auto;
 }
 
 .weekly-trends__header {
@@ -203,6 +205,8 @@ body.light-theme .weekly-card__meta {
 .upcoming {
   padding: 80px 0 100px;
   background-color: var(--background);
+  max-width: 1280px;
+  margin: 0 auto;
 }
 
 .upcoming__container {

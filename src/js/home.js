@@ -23,9 +23,13 @@ let genreMap = {};
 (async () => {
   genreMap = await fetchGenres();
 })();
-
+const width = window.innerWidth;
 function getFirstThree(arr) {
-  return arr.slice(0, 3);
+      if (width <= 767) {
+      return arr.slice(0, 1);
+    } else {
+      return arr.slice(0, 3);
+    }
 }
 
 function renderWeeklyCards(movies) {
