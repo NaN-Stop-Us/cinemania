@@ -92,6 +92,9 @@ function isInLibrary(id) {
   return saved.some(film => film.id === id);
 }
 
+// Add this at the top for sound effect
+const addToLibrarySound = new Audio('./sound/nice-sound-effect-95595.mp3');
+
 function toggleLibrary(movie, button) {
   const libraryKey = 'myLibrary';
   let library = JSON.parse(localStorage.getItem(libraryKey)) || [];
@@ -103,6 +106,9 @@ function toggleLibrary(movie, button) {
   } else {
     library.push(movie);
     button.textContent = 'Remove from My Library';
+    // Play sound when added
+    addToLibrarySound.currentTime = 0;
+    addToLibrarySound.play();
   }
 
   localStorage.setItem(libraryKey, JSON.stringify(library));
@@ -193,5 +199,8 @@ document.addEventListener('click', e => {
     stored.push(newMovie);
     localStorage.setItem('myLibrary', JSON.stringify(stored));
     btn.textContent = 'Remove from My Library';
+    // Play sound when added
+    addToLibrarySound.currentTime = 0;
+    addToLibrarySound.play();
   }
 });
