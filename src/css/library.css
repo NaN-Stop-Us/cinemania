@@ -1,10 +1,11 @@
 @import url('https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700&display=swap');
 
-
 .genre-container {
   display: block;
   position: relative;
   padding: 80px 0 48px 32px;
+  max-width: 1280px;
+  margin: 0 auto;
 }
 
 .genre-list {
@@ -15,7 +16,7 @@
   font-size: 16px;
   border: 1px solid #ffffff;
   background-color: #181818;
-  color: #B7B7B7;
+  color: #b7b7b7;
   appearance: none;
   -webkit-appearance: none;
   -moz-appearance: none;
@@ -53,24 +54,22 @@
 }
 
 .genre-list option:checked {
- color: #f87719; 
+  color: #f87719;
 }
 
-.genre-list option:hover{
-  color:  #f87719;
+.genre-list option:hover {
+  color: #f87719;
 }
-
-
 
 .library-film-list {
   display: flex;
   gap: 15px;
-  margin: 0;
   padding: 0 32px;
   list-style-type: none;
   flex-wrap: wrap;
+  max-width: 1280px;
+  margin: 0 auto;
 }
-
 
 .search-movie {
   font-family: 'Roboto', sans-serif;

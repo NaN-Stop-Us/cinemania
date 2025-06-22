@@ -15,21 +15,28 @@ import { showDetailsPopup, renderStarRating } from './catalog-hero.js';
 import { isInLibrary, addFilm, removeFilm } from './library.js';
 
 
-let weeklyListEl = document.querySelector('#weekly-trends-list');
-let upcomingCard = document.getElementById('upcoming-card');
+const weeklyListEl = document.querySelector('#weekly-trends-list');
+const upcomingCard = document.getElementById('upcoming-card');
+
+
+if (weeklyListEl && upcomingCard) {
+  document.addEventListener('DOMContentLoaded', () => {
+    loadWeeklyTrends();
+    loadUpcomingMovie();
+  });
+}
+
 let genreMap = {};
+
+
 
 // Tür verisini al
 (async () => {
   genreMap = await fetchGenres();
 })();
-const width = window.innerWidth;
+
 function getFirstThree(arr) {
-      if (width <= 767) {
-      return arr.slice(0, 1);
-    } else {
-      return arr.slice(0, 3);
-    }
+  return arr.slice(0, 3);
 }
 
 function renderWeeklyCards(movies) {
@@ -151,23 +158,22 @@ const addBtn = upcomingCard.querySelector('.add-library');
   }
 }
 
-document.addEventListener('DOMContentLoaded', () => {
-  loadWeeklyTrends();
-  loadUpcomingMovie();
-});
 
-weeklyListEl.addEventListener('click', async e => {
-  const card = e.target.closest('.weekly-card');
-  if (!card) return;
 
-  const movieId = Number(card.dataset.id);
-  if (!movieId) return;
 
-  try {
-    const data = await fetchMovies(BASE_URL, ENDPOINTS.TRENDING_WEEK);
-    const movie = data.results.find(film => film.id === movieId);
-    if (movie) showDetailsPopup(movie);
-  } catch (error) {
-    console.error('Modal error:', error);
-  }
-});
+  // Ensure weeklyListEl is not null before adding the event listener
+ if (weeklyListEl) {
+  weeklyListEl.addEventListener('click', async e => {
+    const card = e.target.closest('.weekly-card');
+    if (!card) return;
+    const movieId = Number(card.dataset.id);
+    if (!movieId) return;
+    try {
+      const data = await fetchMovies(BASE_URL, ENDPOINTS.TRENDING_WEEK);
+      const movie = data.results.find(film => film.id === movieId);
+      if (movie) showDetailsPopup(movie); // :white_check_mark: popup burada açılıyor
+    } catch (error) {
+      console.error('Modal error:', error);
+    }
+  });
+}
