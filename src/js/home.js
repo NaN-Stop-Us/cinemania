@@ -15,8 +15,8 @@ import { showDetailsPopup, renderStarRating } from './catalog-hero.js';
 import { isInLibrary, addFilm, removeFilm } from './library.js';
 
 
-const weeklyListEl = document.querySelector('#weekly-trends-list');
-const upcomingCard = document.getElementById('upcoming-card');
+let weeklyListEl = document.querySelector('#weekly-trends-list');
+let upcomingCard = document.getElementById('upcoming-card');
 let genreMap = {};
 
 // Tür verisini al
