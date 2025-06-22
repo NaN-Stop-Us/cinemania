@@ -5,7 +5,7 @@
 
 **Cinemania**, modern ve kullanıcı dostu bir film keşif platformudur. Popüler ve trend filmleri incele, detaylarını öğren, yıldız ver ve favorilerine ekle! 🍿
 
-![Cinemania Hero](./screenshots/hero.png)
+![Cinemania Hero](./src/screenshots/hero.png)
 
 ---
 
@@ -29,13 +29,13 @@
 ## 🖼️ Ekran Görüntüleri
 
 ### 🏠 Home 
-![Home](./screenshots/home.png)
+![Home](./src/screenshots/home.png)
 
 ### 📈 Catalog
-![Catalog](./screenshots/catalog.png)
+![Catalog](./src/screenshots/catalog.png)
 
 ### 🧾 Library
-![Library](./screenshots/library.png)
+![Library](./src/screenshots/library.png)
 
 ---
 
