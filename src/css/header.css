@@ -115,3 +115,17 @@ body.light-theme .moon {
 body.light-theme .toggle-thumb {
   left: 4px;
 }
+
+header button{
+  display: none;
+}
+.fog{
+  display: none;
+}
+.fog.active{
+  display: block;
+  background-color: #ffffff20;
+  position: absolute;
+  width: 100%;
+  height: 100%;
+}

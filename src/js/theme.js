@@ -14,3 +14,15 @@
     localStorage.setItem('theme', isLight ? 'light' : 'dark');
   });
 });
+
+
+window.addEventListener("DOMContentLoaded", () => {
+  const menu = document.getElementById('menu-btn');
+  const navbar = document.getElementById('nav');
+  const fog = document.getElementById('fog');
+
+  menu.addEventListener('click', () => {
+    navbar.classList.toggle('shown');
+    fog.classList.toggle('active');
+})
+})

@@ -15,17 +15,21 @@ import { showDetailsPopup, renderStarRating } from './catalog-hero.js';
 import { isInLibrary, addFilm, removeFilm } from './library.js';
 
 
-const weeklyListEl = document.querySelector('#weekly-trends-list');
-const upcomingCard = document.getElementById('upcoming-card');
+let weeklyListEl = document.querySelector('#weekly-trends-list');
+let upcomingCard = document.getElementById('upcoming-card');
 let genreMap = {};
 
 // Tür verisini al
 (async () => {
   genreMap = await fetchGenres();
 })();
-
+const width = window.innerWidth;
 function getFirstThree(arr) {
-  return arr.slice(0, 3);
+      if (width <= 767) {
+      return arr.slice(0, 1);
+    } else {
+      return arr.slice(0, 3);
+    }
 }
 
 function renderWeeklyCards(movies) {

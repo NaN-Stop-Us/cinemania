@@ -10,9 +10,9 @@ fetchGenres().then(map => {
 
 
 const LIBRARY_KEY = 'myLibrary';
-const filmList = document.getElementById('library-film-list');
-const emptySection = document.getElementById('empty-library');
-const loadMoreBtn = document.getElementById('load-more-btn');
+let filmList = document.getElementById('library-film-list');
+let emptySection = document.getElementById('empty-library');
+let loadMoreBtn = document.getElementById('load-more-btn');
 
 let allFilms = [];
 let currentIndex = 0;
