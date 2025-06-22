@@ -25,4 +25,11 @@ window.addEventListener("DOMContentLoaded", () => {
     navbar.classList.toggle('shown');
     fog.classList.toggle('active');
 })
+
+if (fog && navbar) {
+  fog.addEventListener('click', () => {
+    navbar.classList.remove('shown');
+    fog.classList.remove('active');
+  });
+}
 })
