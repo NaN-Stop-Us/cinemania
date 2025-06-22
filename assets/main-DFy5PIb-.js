@@ -1,4 +1,4 @@
-import{f as C,a as b,B as $,E as M,I as F,i as T,r as D,b as G,s as x,c as O}from"./footer-DLG_b0B6.js";const v=document.querySelector("#weekly-trends-list"),_=document.getElementById("upcoming-card");v&&_&&document.addEventListener("DOMContentLoaded",()=>{U(),j()});let S={};(async()=>S=await C())();const H=window.innerWidth;function q(t){return H<=767?t.slice(0,1):t.slice(0,3)}function P(t){const n=t.map(a=>{const{id:r,title:e,poster_path:o,release_date:y,vote_average:c,genre_ids:s}=a,l=y?y.slice(0,4):"N/A",L=o?`${F}/w500${o}`:"https://via.placeholder.com/395x574?text=No+Image",k=(s==null?void 0:s.map(d=>S[d]).join(", "))||"";return`
+import{f as C,a as b,B as $,E as M,I as F,i as T,r as D,b as G,s as x,c as O}from"./footer-lIEdGYke.js";const v=document.querySelector("#weekly-trends-list"),_=document.getElementById("upcoming-card");v&&_&&document.addEventListener("DOMContentLoaded",()=>{U(),j()});let S={};(async()=>S=await C())();const H=window.innerWidth;function q(t){return H<=767?t.slice(0,1):t.slice(0,3)}function P(t){const n=t.map(a=>{const{id:r,title:e,poster_path:o,release_date:y,vote_average:c,genre_ids:s}=a,l=y?y.slice(0,4):"N/A",L=o?`${F}/w500${o}`:"https://via.placeholder.com/395x574?text=No+Image",k=(s==null?void 0:s.map(d=>S[d]).join(", "))||"";return`
       <li class="weekly-card" data-id="${r}" data-rating="${c}">
         <div class="weekly-card__image-wrapper">
           <img src="${L}" alt="${e}" class="weekly-card__image" />
@@ -42,4 +42,4 @@ import{f as C,a as b,B as $,E as M,I as F,i as T,r as D,b as G,s as x,c as O}fro
         </div>
       </div>
     `;const R=d.querySelector(".weekly-card__rating");O(y,R),d.addEventListener("click",()=>{x(a,()=>u(!0))}),i.appendChild(d)}),g+=N,m&&(m.style.display=g<p.length?"block":"none")}m&&m.addEventListener("click",()=>{u()});E&&E.addEventListener("change",()=>{const t=E.value,n=JSON.parse(localStorage.getItem(B))||[];if(t==="Genre"){p=n,u(!0);return}p=n.filter(r=>Array.isArray(r.genres)&&r.genres.includes(t)?!0:Array.isArray(r.genre_ids)&&w?r.genre_ids.some(e=>w[e]===t):!1),g=0,i&&(i.innerHTML=""),u()});document.addEventListener("DOMContentLoaded",()=>{u(!0)});
-//# sourceMappingURL=main-BVfPCTr5.js.map
+//# sourceMappingURL=main-DFy5PIb-.js.map
